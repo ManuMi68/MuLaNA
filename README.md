@@ -24,3 +24,10 @@ devtools::install_github("kassambara/ggpubr").
 install.packages("WRS2").  
 Source Rand Wilcox Robust Analysis Code from https://dornsife.usc.edu/labs/rwilcox/software/.  
 This program uses the version: source("Rallfun-v37.txt")   
+   
+**Authors**
+Manuel-Miguel Ramos-Álvarez (mramos@ujaen.es) - Developer, Muzzio Lab - 
+See also the list of contributors who participated in this project.   
+   
+**License**
+This project is PRIVATE to Muzzio Lab members. All Rights Reserved 2021.    
