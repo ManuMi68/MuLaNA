@@ -26,7 +26,7 @@ Source Rand Wilcox Robust Analysis Code from https://dornsife.usc.edu/labs/rwilc
 This program uses the version: source("Rallfun-v37.txt")   
    
 **Authors**.  
-Manuel-Miguel Ramos-Álvarez (mramos@ujaen.es) - Developer, Muzzio Lab - 
+Manuel-Miguel Ramos-Álvarez (mramos@ujaen.es) *- collaborator, Muzzio Lab -*.   
 See also the list of contributors who participated in this project.   
    
 **License**.  
