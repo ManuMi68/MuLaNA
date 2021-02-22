@@ -1,7 +1,7 @@
 # MuLaNA
 Muzzio Lab Neuroscience Analysis
 
-This is a set of statistical analysis codes written in R.
+This is a set of statistical analysis codes written in R.   
 It is oriented for the robust analysis of experimental designs, 
 including on-way, two-way & three-way, between and Mixed.
 
