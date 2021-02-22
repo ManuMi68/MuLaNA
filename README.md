@@ -5,10 +5,13 @@ This is a set of statistical analysis codes written in R.
 It is oriented for the robust analysis of experimental designs,   
 including on-way, two-way & three-way, between and Mixed.   
 
-**The data is included in the folder "Design_Sleep3".**  
+**The data is included in the folder *"Design_Sleep3"*.**  
    
 **The code is organized in an html file that includes all the explanations and details:**   
-"Differentia-Sleep-Deprivation-Place-Cell-Young-Old-Mice.html".   
+*"Differentia-Sleep-Deprivation-Place-Cell-Young-Old-Mice.html"*.   
+Alternatively the code is also included in the RStudio file:   
+*"Differentia Sleep Deprivation Place Cell Young Old Mice.Rmd"*.   
+   
 The complete code is included for the analysis of all the data of the paper  
   "Differentia effect of sleep deprivation on place cell representations,   
   sleep architecture, and memory in young and old mice".   
