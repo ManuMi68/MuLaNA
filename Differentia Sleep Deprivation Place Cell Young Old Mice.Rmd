@@ -24,17 +24,10 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r, include=FALSE }
-
-# Themes
-  # “cerulean”, “journal”, “flatly”, “darkly”, “readable”, “spacelab”, “united”, “cosmo”, “lumen”, “paper”, “sandstone”, “simplex”, “yeti”   
-# highlight
-  # "tango", "pygments", "kate", "monochrome", "espresso", "zenburn", "haddock" 
-# Página interesante con colores fondo: https://www.htmlcsscolor.com/hex/F8F8F8
-```
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,class.source = "watch-out",class.output="#F8F8F8",comment = NA)
+knitr::knit_hooks$set(optipng = knitr::hook_optipng)
+knitr::opts_chunk$set(echo = TRUE,class.source = "watch-out",class.output="#F8F8F8",comment = NA,warning = FALSE, message = FALSE,optipng='-o7', fig.show='hold',results='hold',fig.keep=2)
 ```
 
 ```{r klippy, echo=FALSE, include=TRUE}
@@ -88,6 +81,8 @@ library(ggpubr)
 library(dplyr)
 #install.packages("ARTool")
 #install.packages("lubridate")
+#install.packages("kableExtra")
+#install.packages("caret")
 library(ARTool)
 library(lubridate)
 library(kableExtra)
@@ -2005,28 +2000,137 @@ do.call(rbind, lapply(EffBb, as.data.table)))
   
   Kbl3<-function(ResPas,lbl) {
       ResPas %>%
-      kbl(digits=4,escape = F, align = "c")  %>%
-      kable_paper("hover", full_width = F,font_size = 10) %>%
-      add_header_above(header = lbl)
+      kbl(caption = lbl,digits=4,escape = F, align = "c")  %>%
+      kable_paper("hover", bootstrap_options = c("striped", "hover", "condensed", "responsive"),full_width = F,font_size = 10)
     }
   
 ```
 
+```{r ResCtrl1, eval=F}
+    # Results
+    plot(Grp)
+    plot(Grp2) # Only this graph is printed in the html file.
+    ResGen  # Lean option to view the results of statistical analysis
+    
+    Kbl3(ResGen[[1]], "Omnibus AOV. Design 2x2");cat("\n")
+    Kbl3(ResGen[[2]], "Simple Effects Age-Sleep. Design 2x2")
+    Kbl3(ResGen[[3]], "Extense Simple Effects Age-Sleep. Design 2x2")
+```
+```{r ResCtrl2, eval=F}
+    # Results
+    plot(Grp)
+    plot(Grp2) # Only this graph is printed in the html file.
+    ResGen  # Lean option to view the results of statistical analysis
+    
+    Kbl3(ResGen[[1]], "Omnibus AOV. Design 2x(5xS)");cat("\n")
+    Kbl3(ResGen[[2]], "Simple Effects Age-Time. Design 2x(5xS)")
+    Kbl3(ResGen[[3]], "Main Effects of Time. Design 2x(5xS)")
+```
+```{r ResCtrl3, eval=F}
+    # Results
+    plot(Grp)
+    plot(Grp2) # Only this graph is printed in the html file.
+    GrpO
+    plot(Grp3)
+    ResGen # Lean option to view the results of statistical analysis
+    
+    Kbl3(ResPas = ResGen[[1]], lbl = "Omnibus AOV. Design 2x2x(4xS)");cat("\n")
+    Kbl3(ResGen[[2]], "Interaction Age-Sleep. Design 2x2x(4xS)")
+    Kbl3(ResGen[[3]], "Interaction Age-Time. Design 2x2x(4xS)")
+    Kbl3(ResGen[[4]], "Interaction Sleep-Time. Design 2x2x(4xS)")
+    Kbl3(ResGen[[5]], "Main Effect Time. Design 2x2x(4xS)")
+    Kbl3(ResGen[[6]], "Simple Effect Time each Age-Sleep condition. Design 2x2x(4xS)")
+    Kbl3(ResGen[[7]][[1]][[1]], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(4xS)")
+    Kbl3(ResGen[[7]][[1]][[2]], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(4xS)")
+    Kbl3(ResGen[[7]][[1]][[3]], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(4xS)")
+    Kbl3(ResGen[[7]][[2]][[1]], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(4xS)")
+    Kbl3(ResGen[[7]][[2]][[2]], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(4xS)")
+    Kbl3(ResGen[[7]][[2]][[3]], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(4xS)")
+    Kbl3(ResGen[[7]][[3]][[1]], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(4xS)")
+    Kbl3(ResGen[[7]][[3]][[2]], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(4xS)")
+    Kbl3(ResGen[[7]][[3]][[3]], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(4xS)")
+    Kbl3(ResGen[[7]][[4]][[1]], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(4xS)")
+    Kbl3(ResGen[[7]][[4]][[2]], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(4xS)")
+    Kbl3(ResGen[[7]][[4]][[3]], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(4xS)")
+```
+```{r ResCtrl4, eval=F}
+    # Results
+    plot(Grp)
+    plot(Grp2) # Only this graph is printed in the html file.
+    GrpO
+    plot(Grp3)
+    ResGen # Lean option to view the results of statistical analysis
+    
+    Kbl3(ResPas = ResGen[[1]], lbl = "Omnibus AOV. Design 2x2x(5xS)");cat("\n")
+    Kbl3(ResGen[[2]], "Interaction Age-Sleep. Design 2x2x(5xS)")
+    Kbl3(ResGen[[3]], "Interaction Age-Time. Design 2x2x(5xS)")
+    Kbl3(ResGen[[4]], "Interaction Sleep-Time. Design 2x2x(5xS)")
+    Kbl3(ResGen[[5]], "Main Effect Time. Design 2x2x(5xS)")
+    Kbl3(ResGen[[6]], "Simple Effect Time each Age-Sleep condition. Design 2x2x(5xS)")
+    Kbl3(ResGen[[7]][[1]][[1]], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(5xS)")
+    Kbl3(ResGen[[7]][[1]][[2]], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(5xS)")
+    Kbl3(ResGen[[7]][[1]][[3]], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(5xS)")
+    Kbl3(ResGen[[7]][[2]][[1]], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(5xS)")
+    Kbl3(ResGen[[7]][[2]][[2]], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(5xS)")
+    Kbl3(ResGen[[7]][[2]][[3]], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(5xS)")
+    Kbl3(ResGen[[7]][[3]][[1]], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(5xS)")
+    Kbl3(ResGen[[7]][[3]][[2]], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(5xS)")
+    Kbl3(ResGen[[7]][[3]][[3]], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(5xS)")
+    Kbl3(ResGen[[7]][[4]][[1]], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(5xS)")
+    Kbl3(ResGen[[7]][[4]][[2]], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(5xS)")
+    Kbl3(ResGen[[7]][[4]][[3]], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(5xS)")
+    Kbl3(ResGen[[7]][[5]][[1]], "Simple Effect Age-Sleep on Time=5 Omnibus AOV. Design 2x2x(5xS)")
+    Kbl3(ResGen[[7]][[5]][[2]], "Simple Effect Age-Sleep on Time=5 Simple Effects. Design 2x2x(5xS)")
+    Kbl3(ResGen[[7]][[5]][[3]], "Simple Effect Age-Sleep on Time=5 Extense Simple Effects. Design 2x2x(5xS)")
+```
+```{r ResCtrl5, eval=F}
+    # Results
+    plot(Grp)
+    plot(Grp2) # Only this graph is printed in the html file.
+    ResGen  # Lean option to view the results of statistical analysis
+    
+    Kbl3(ResGen[[1]], "Omnibus AOV Design 2x(4xS)");cat("\n")
+    Kbl3(ResGen[[2]], "Simple Effects Age-Time Design 2x(4xS)")
+    Kbl3(ResGen[[3]], "Main Effects Time Design 2x(4xS)")
+```
+```{r ResCtrl6, eval=F}
+    
+    # Results
+    plot(Grp)
+    plot(Grp2) # Only this graph is printed in the html file.
+    plot(Grp3)
+    GrpO
+    ResGen # Lean option to view the results of statistical analysis
+    
+    Kbl3(ResPas = ResGen[[1]], lbl = "Omnibus AOV. Design 2x2x(2xS)");cat("\n")
+    Kbl3(ResGen[[2]], "Interaction Age-Sleep. Design 2x2x(2xS)")
+    Kbl3(ResGen[[3]], "Interaction Age-Time. Design 2x2x(2xS)")
+    Kbl3(ResGen[[4]], "Interaction Sleep-Time. Design 2x2x(2xS)")
+    Kbl3(ResGen[[5]], "Main Effect Time. Design 2x2x(2xS)")
+    Kbl3(ResGen[[6]], "Simple Effect Time each Age-Sleep condition. Design 2x2x(2xS)")
+    Kbl3(ResGen[[7]][[1]][[1]], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(2xS)")
+    Kbl3(ResGen[[7]][[1]][[2]], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(2xS)")
+    Kbl3(ResGen[[7]][[1]][[3]], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(2xS)")
+    Kbl3(ResGen[[7]][[2]][[1]], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(2xS)")
+    Kbl3(ResGen[[7]][[2]][[2]], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(2xS)")
+    Kbl3(ResGen[[7]][[2]][[3]], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(2xS)")
+```
+
 ***   
+
 # **Figure 1. Object place recognition (OPR) behavioral performance**  
 
 ***   
 
 > **Figure 1.** Object place recognition (OPR) behavioral performance. A) Schematic of behavioral design. B) Percent change in preference for displaced object [number of animals (n): young control (YC): n=16, young SD (YSD): n=15, old control (OC): n=13, old SD (OSD): n=15]. C) Percent change in preference for the unmoved objects. D) Total time of object exploration during training and testing in seconds (s). E) Percent change in preference for displaced object excluding trial 1. F) Percent change in preference for displaced object in young (n=7) and old (n=7) mice receiving delayed SD, 5 hr after training (YSD: n=6, OSD: n=7). G) Levels of plasma corticosterone in control (young: n=5; old: n=5) and SD (young: n=5; old: n=6) mice. In all Figures data are graphed using Box Plots according to robust statistics based on the median. The inner line corresponds to the median, the lower box represents the first quartile, the upper box the third quartile, and the extending lines, known as whiskers, represent the minimum and maximum, showing the extent of variability. The diamond represents the trimmed mean (e.g., adjusted average without outliers) used for analysis, which was set at 0.2, according to robust statistics recommendations (Wilcox, 2012) for all age groups and sleep conditions. T1-T3: training trials. Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 1.   
 
-![](Images/Figure1.png "Figure 1")  <br>      
 
 ***   
 
 
 
 ## Fig 1B Percent change in preference for displaced object {Design 2x2}   
-```{r F1B, warning=F,message=F}
+```{r F1B, }
   NmBas="Fig1B OPR"
   ResGen<-NA
 
@@ -2055,20 +2159,12 @@ do.call(rbind, lapply(EffBb, as.data.table)))
     ResGen<-AOVBwF(2,2,DatPas = rrt,nBMM = 10000)
     AlmacenGen(Grp,Grp2,ResGen,PathDesign,NmBas,Typ=1)
     
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    ResGen
-    
-    Kbl3(ResGen[1], "Omnibus AOV Design 2x2")
-    Kbl3(ResGen[2], "Simple Effects Age-Sleep Design 2x2")
-    Kbl3(ResGen[3], "Extense Simple Effects Age-Sleep Design 2x2")
-    
-  
-  
-```
+    <<ResCtrl1>>
+```   
+   
+   
 ## Fig 1C Percent change in preference for the unmoved objects {Design 2x2}   
-```{r F1C, warning=F,message=F}
+```{r F1C, }
   NmBas="Fig1C PreferenceUnmoved"
   ResGen<-NA
   
@@ -2098,18 +2194,12 @@ do.call(rbind, lapply(EffBb, as.data.table)))
     ResGen<-AOVBwF(2,2,DatPas = rrt,nBMM = 10000)
     AlmacenGen(Grp,Grp2,ResGen,PathDesign,NmBas,Typ=1)
     
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    ResGen
-    
-    Kbl3(ResGen[1], "Omnibus AOV Design 2x2")
-    Kbl3(ResGen[2], "Simple Effects Age-Sleep Design 2x2")
-    Kbl3(ResGen[3], "Extense Simple Effects Age-Sleep Design 2x2")
-```
-
+    <<ResCtrl1>>
+```   
+   
+   
 ## Fig 1D Total time of object exploration during training and testing in seconds (s) {Design 2x2x(4xS)}   
-```{r F1D, warning=F,message=F}
+```{r F1D, }
   NmBas="Fig1D ObjectExploration"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -2162,35 +2252,11 @@ do.call(rbind, lapply(EffBb, as.data.table)))
       GrpO
     dev.off()
     
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    GrpO
-    plot(Grp3)
-    ResGen
-    
-    Kbl3(ResPas = ResGen[1], lbl = "Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[2], "Interaction Age-Sleep. Design 2x2x(4xS)")
-    Kbl3(ResGen[3], "Interaction Age-Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[4], "Interaction Sleep-Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[5], "Main Effect Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[6], "Simple Effect Time each Age-Sleep condition. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][1], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][2], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][3], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][1], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][2], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][3], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][1], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][2], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][3], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][1], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][2], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][3], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(4xS)")
+    <<ResCtrl3>>
 ```
 
 ## Fig 1E Percent change in preference for displaced object excluding trial 1 {Design 2x2}   
-```{r F1E, warning=F,message=F}
+```{r F1E, }
   NmBas="Fig1E OPRWithoutT1"
   ResGen<-NA
   
@@ -2219,17 +2285,11 @@ do.call(rbind, lapply(EffBb, as.data.table)))
     ResGen<-AOVBwF(2,2,DatPas = rrt,nBMM = 10000)
     AlmacenGen(Grp,Grp2,ResGen,PathDesign,NmBas,Typ=1)
     
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    ResGen
-    Kbl3(ResGen[1], "Omnibus AOV Design 2x2")
-    Kbl3(ResGen[2], "Simple Effects Age-Sleep Design 2x2")
-    Kbl3(ResGen[3], "Extense Simple Effects Age-Sleep Design 2x2")
+    <<ResCtrl1>>
 ```
 
 ## Fig 1F Percent change in preference for displaced object in young and old mice receiving delayed SD 5 hr after training {Design 2}   
-```{r F1F, warning=F,message=F}
+```{r F1F, }
   NmBas="Fig1F OPRDelayed"
   
   DatDTFull <- data.table(read.table(paste0(PathDesign,"OPRDelayed.csv"), header=TRUE, sep=";",
@@ -2256,7 +2316,7 @@ do.call(rbind, lapply(EffBb, as.data.table)))
 ```
 
 ## Fig 1G Levels of plasma corticosterone in control and SD mice {Design 2x2}   
-```{r F1G, warning=F,message=F}
+```{r F1G, }
   NmBas="Fig1G Cortisol"
   ResGen<-NA
   
@@ -2279,31 +2339,23 @@ do.call(rbind, lapply(EffBb, as.data.table)))
   ResGen<-AOVBwF(2,2,DatPas = rrt,nBMM = 10000)
   AlmacenGen(Grp,Grp2,ResGen,PathDesign,NmBas,Typ=1)
   
-  #Results
-    plot(Grp)
-    plot(Grp2)
-    ResFn
+  <<ResCtrl1>>
+```   
     
-    Kbl3(ResGen[1], "Omnibus AOV Design 2x2")
-    Kbl3(ResGen[2], "Simple Effects Age-Sleep Design 2x2")
-    Kbl3(ResGen[3], "Extense Simple Effects Age-Sleep Design 2x2")
-```
-
+    
 ***   
-
-
+   
 
 # **Figure 2. Rate and global remapping across sessions and percentage.**   
+
 ***   
 
 > **Figure 2.** Rate and global remapping across sessions and percentage of different cell types during OPR performance. A) OPR performance comparing tetrode, EEG/EMG and all implanted animals. B) Isolation distance showing absence of differences in spike cluster quality across conditions over time. C) Average rate remapping for all groups across trials. Young controls and old SD mice displayed higher rate remapping during the test trial in comparison to the last training trial (T3). Additionally, these groups also displayed more rate remapping than young SD mice during the test. D) Average global remapping (map similarity) for all groups across trials. Old animals displayed more remapping (i.e., instability) than young mice between the habituation and trial 1 and during testing. E-F) Percentage of context, object configuration, and unstable cells recorded in young (E) and old (F) mice. Young controls: 6 mice, 60 cells, range of cells per animal: 6-16, young SD: 4 mice, 50 cells, range of cells per animal: 8-18, old control: 5 mice, 36 cells, range of cells per animal: 5-13, old SD: 5 mice, 41 cells: range of cells per animal: 4-13. Hab: habituation, T1-T3: training trials. Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 2.   
 
-![](Images/Figure2.png "Figure 2")  <br>      
-
 ***   
-
-## Fig 2A OPR performance comparing tetrode, EEG/EMG and all implanted animals {Design 2x2x2}
-```{r F2A, warning=F,message=F}
+   
+## Fig 2A OPR performance comparing tetrode, EEG/EMG and all implanted animals {Design 2x2x2}   
+```{r F2A, }
 
     NmBas="Fig2A CompareTetrodeEEG"
     NmFich="OPR.csv";
@@ -2378,11 +2430,13 @@ do.call(rbind, lapply(EffBb, as.data.table)))
     plot(Grp3)
     ResFn
     
-    Kbl3(ResPas = ResFn[1], lbl = "Omnibus AOV. Design 2x2x2")
+    Kbl3(ResPas = ResFn[[1]], lbl = "Omnibus AOV. Design 2x2x2")
     
-```
-## Fig 2B Cluster Quality Analysis of Isolation Distance {Design 2x2x(5xS)}
-```{r F2B, warning=F,message=F}
+```   
+   
+   
+## Fig 2B Cluster Quality Analysis of Isolation Distance {Design 2x2x(5xS)}   
+```{r F2B, }
   NmBas="Fig2B IsolationDistance"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -2402,7 +2456,7 @@ do.call(rbind, lapply(EffBb, as.data.table)))
   }
   
   #Graphs
-  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Cluster Quality", "","Isolation Distance"),ylmP =c(0,30),hLin = F,lvIp=5)
+  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Cluster Quality", "","Isolation Distance"),ylmP =c(0,40),hLin = F,lvIp=5)
   Grp2=Grp
     
     #AOV
@@ -2424,37 +2478,12 @@ do.call(rbind, lapply(EffBb, as.data.table)))
       GrpO
     dev.off()
     
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    GrpO
-    plot(Grp3)
-    ResGen
-    
-    Kbl3(ResPas = ResGen[1], lbl = "Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[2], "Interaction Age-Sleep. Design 2x2x(5xS)")
-    Kbl3(ResGen[3], "Interaction Age-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[4], "Interaction Sleep-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[5], "Main Effect Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[6], "Simple Effect Time each Age-Sleep condition. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][1], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][2], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][3], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][1], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][2], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][3], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][1], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][2], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][3], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][1], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][2], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][3], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][1], "Simple Effect Age-Sleep on Time=5 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][2], "Simple Effect Age-Sleep on Time=5 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][3], "Simple Effect Age-Sleep on Time=5 Extense Simple Effects. Design 2x2x(5xS)")
-```
+    <<ResCtrl4>>
+```   
+   
+   
 ## Fig 2C Average rate remapping for all groups across trials {Design 2x2x(4xS)}   
-```{r F2C, warning=F,message=F}
+```{r F2C, }
   NmBas="Fig2C RateRemap"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -2508,35 +2537,12 @@ do.call(rbind, lapply(EffBb, as.data.table)))
       GrpO
     dev.off()
 
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    GrpO
-    plot(Grp3)
-    ResGen
-    
-    Kbl3(ResPas = ResGen[1], lbl = "Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[2], "Interaction Age-Sleep. Design 2x2x(4xS)")
-    Kbl3(ResGen[3], "Interaction Age-Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[4], "Interaction Sleep-Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[5], "Main Effect Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[6], "Simple Effect Time each Age-Sleep condition. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][1], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][2], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][3], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][1], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][2], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][3], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][1], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][2], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][3], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][1], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][2], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][3], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(4xS)")
-```
+    <<ResCtrl3>>
+```   
+   
 
 ## Fig 2D Average global remapping (map similarity) for all groups across trials {Design 2x2x(4xS)}   
-```{r F2D, warning=F,message=F}
+```{r F2D, }
   NmBas="Fig2D GlobalRemapAllCells"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -2604,47 +2610,24 @@ do.call(rbind, lapply(EffBb, as.data.table)))
       GrpO
     dev.off()
     
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    GrpO
-    plot(Grp3)
-    ResGen
-    
-    Kbl3(ResPas = ResGen[1], lbl = "Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[2], "Interaction Age-Sleep. Design 2x2x(4xS)")
-    Kbl3(ResGen[3], "Interaction Age-Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[4], "Interaction Sleep-Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[5], "Main Effect Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[6], "Simple Effect Time each Age-Sleep condition. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][1], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][2], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][3], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][1], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][2], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][3], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][1], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][2], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][3], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][1], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][2], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][3], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(4xS)")
+    <<ResCtrl3>>
 ```
    
 ***   
 
 
+   
+   
 # **Figure 3. Cell-type remapping across sessions during performance in the OPR task.**   
+
 ***   
 
 > **Figure 3.** Cell-type remapping across sessions during performance in the OPR task. A) Schematic indicating how similarity scores were computed. B-D) Average global remapping of context (B), object configuration (C), and unstable (D) cells across trials and corresponding examples of color-coded place cell rate maps, trajectory spike maps, and waveforms. Context cells are only unstable in the old control group, suggesting that poor performance in this group stems from inability to recall the context. Conversely, object configuration cells, which by definition remap when the objects are introduced, display intermediate levels of stability in young controls and old SD, the groups that show successful performance in the OPR task. Conversely, poor OPR performance is associated with either too much object configuration stability (young SD animals) or too much object configuration instability (old controls). No differences across conditions and/or time were observed in unstable cells. Blue indicates that the animal has visited the region but the cell has not fired, vivid colors indicate high neuronal activity (as shown in the color bar at the upper right corner). Number on top of each map represents peak firing rate (Hz) used to normalize the map colors. Red dots on the trajectory maps indicate location of action potentials. Waveform similarity indicates recording stability during the 24 hr period of training and testing. Context cells: Young controls (YC=23 cells), young SD (YSD=20 cells), old control (OC=8 cells), old SD (OSD=9 cells). Object cells: Young control (YC: 15 cells), young SD (YSD: 13 cells), old control (OC: 17 cells), old SD (OSD: 14 cells). Unstable cells:  Young control (YC=22 cells), young SD (YSD=17 cells), old control (OC=11 cells), old SD (OSD=18 cells). Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 3.   
 
-![](Images/Figure3.png "Figure 3")  <br>      
-
 ***   
 
 ## Fig 3B Average global remapping of context cells {Design 2x2x(4xS)}   
-```{r F3B, warning=F,message=F}
+```{r F3B, }
   NmBas="Fig3B ContextCells"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -2703,35 +2686,11 @@ do.call(rbind, lapply(EffBb, as.data.table)))
       GrpO
     dev.off()
   
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    GrpO
-    plot(Grp3)
-    ResGen
-    
-    Kbl3(ResPas = ResGen[1], lbl = "Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[2], "Interaction Age-Sleep. Design 2x2x(4xS)")
-    Kbl3(ResGen[3], "Interaction Age-Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[4], "Interaction Sleep-Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[5], "Main Effect Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[6], "Simple Effect Time each Age-Sleep condition. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][1], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][2], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][3], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][1], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][2], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][3], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][1], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][2], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][3], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][1], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][2], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][3], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(4xS)")
+    <<ResCtrl3>>
 ```
 
 ## Fig 3C Average global remapping of object configuration cells {Design 2x2x(4xS)}   
-```{r F3C, warning=F,message=F}
+```{r F3C, }
   NmBas="Fig3C ObjectCells"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -2789,34 +2748,10 @@ do.call(rbind, lapply(EffBb, as.data.table)))
       GrpO
     dev.off()
     
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    GrpO
-    plot(Grp3)
-    ResGen
-    
-    Kbl3(ResPas = ResGen[1], lbl = "Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[2], "Interaction Age-Sleep. Design 2x2x(4xS)")
-    Kbl3(ResGen[3], "Interaction Age-Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[4], "Interaction Sleep-Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[5], "Main Effect Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[6], "Simple Effect Time each Age-Sleep condition. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][1], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][2], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][3], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][1], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][2], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][3], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][1], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][2], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][3], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][1], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][2], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][3], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(4xS)")
+    <<ResCtrl3>>
 ```
 ## Fig 3D Average global remapping of unstable cells across trials {Design 2x2x(4xS)}   
-```{r F3D, warning=F,message=F}
+```{r F3D, }
   NmBas="Fig3D UnstableCells"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -2857,44 +2792,20 @@ do.call(rbind, lapply(EffBb, as.data.table)))
       GrpO
     dev.off()
 
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    GrpO
-    plot(Grp3)
-    ResGen
-    
-    Kbl3(ResPas = ResGen[1], lbl = "Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[2], "Interaction Age-Sleep. Design 2x2x(4xS)")
-    Kbl3(ResGen[3], "Interaction Age-Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[4], "Interaction Sleep-Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[5], "Main Effect Time. Design 2x2x(4xS)")
-    Kbl3(ResGen[6], "Simple Effect Time each Age-Sleep condition. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][1], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][2], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[1]][3], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][1], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][2], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[2]][3], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][1], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][2], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[3]][3], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][1], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][2], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(4xS)")
-    Kbl3(ResGen[[7]][[4]][3], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(4xS)")
+    <<ResCtrl3>>
 ```
-   
+      
+      
 # **Figure 4. Place cell stability during unmoved object control task**      
+
 ***   
 
 > **Figure 4.** Place cell stability during unmoved object control task. A) Schematics of the task. B) Isolation distance showing absence of differences in spike cluster quality across conditions over time. C-E) Examples of context (C), object configuration (D), and unstable (D) rate maps, trajectory spike maps, and waveforms recorded from young and old control mice trained in the unmoved object control task. Context and object configuration cells recorded in young mice were more stable during the test than those recorded in old controls. Unstable cells did not show differences across groups and/or time. Blue indicates that the animal has visited the region but the cell has not fired, vivid colors indicate high neuronal activity (as shown in the color bar at the upper right corner). Number on top of each map represents peak firing rate (Hz) used to normalize the map colors. Red dots on the trajectory maps indicate location of action potentials. Waveform similarity indicates recording stability during the 24 hr period of training and testing. Young: 3 mice, 30 cells, old: 4 mice, 24 cells. Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 4.   
 
-![](Images/Figure4.png "Figure 4")  <br>      
-
 ***   
-
+   
 ## Fig 4B Unmoved Isolation distance {Design 2x(5xS)}
-```{r F4B, warning=F,message=F}
+```{r F4B, }
   NmBas="Fig4B UnMovedIsolationDistance"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -2907,7 +2818,7 @@ do.call(rbind, lapply(EffBb, as.data.table)))
   ExtendDT<-rrt$ExtendDT
   
   #Graphs
-  Grp<- Grph.3b(DatP = ExtendDT,"OPR",LblsP =c("Cluster Quality", "","Isolation Distance"),ylmP =c(0,30),hLin = F,lvIp = 5,GrpSel = c(1,3))
+  Grp<- Grph.3b(DatP = ExtendDT,"OPR",LblsP =c("Cluster Quality", "","Isolation Distance"),ylmP =c(0,40),hLin = F,lvIp = 5,GrpSel = c(1,3))
 
   Grp2=Grp
   
@@ -2932,15 +2843,10 @@ do.call(rbind, lapply(EffBb, as.data.table)))
       GrpO
     dev.off()
 
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    ResGen
-    
-    Kbl3(ResGen[1], "Omnibus AOV Design 2x(5xS)")
-    Kbl3(ResGen[2], "Simple Effects Age-Time Design 2x(5xS)")
-    Kbl3(ResGen[3], "Main Effects Time Design 2x(5xS)")
-```
+    <<ResCtrl2>>
+```   
+   
+   
 ## Fig 4C Unmoved Controls Global Remapping Context Cells {Design 2x(4xS)}   
 ```{r F4C, warning=F,message=F}
   NmBas="Fig4C UnMovedContextCells"
@@ -2986,18 +2892,12 @@ do.call(rbind, lapply(EffBb, as.data.table)))
       Grp3
     dev.off()
   
-  #Results
-    plot(Grp)
-    plot(Grp2)
-    ResGen
-    
-    Kbl3(ResGen[1], "Omnibus AOV Design 2x(4xS)")
-    Kbl3(ResGen[2], "Simple Effects Age-Time Design 2x(4xS)")
-    Kbl3(ResGen[3], "Main Effects Time Design 2x(4xS)")
-```
-
+  <<ResCtrl5>>
+```   
+   
+   
 ## Fig 4D Unmoved Controls Global Remapping Object configuration Cells {Design 2x(4xS)}   
-```{r F4D, warning=F,message=F}
+```{r F4D, }
   NmBas="Fig4D UnMovedObjectCells"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -3036,18 +2936,11 @@ do.call(rbind, lapply(EffBb, as.data.table)))
       Grp3
     dev.off()
   
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    ResGen
-    
-    Kbl3(ResGen[1], "Omnibus AOV Design 2x(4xS)")
-    Kbl3(ResGen[2], "Simple Effects Age-Time Design 2x(4xS)")
-    Kbl3(ResGen[3], "Main Effects Time Design 2x(4xS)")
+    <<ResCtrl5>>
 ```
 
 ## Fig 4E Unmoved Controls Global Remapping Unstable Cells {Design 2x(4xS)}   
-```{r F4E, warning=F,message=F}
+```{r F4E, }
   NmBas="Fig4E UnMovedUnstableCells"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -3080,31 +2973,24 @@ do.call(rbind, lapply(EffBb, as.data.table)))
       Grp3
     dev.off()
   
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    ResGen
-    
-    Kbl3(ResGen[1], "Omnibus AOV Design 2x(4xS)")
-    Kbl3(ResGen[2], "Simple Effects Age-Time Design 2x(4xS)")
-    Kbl3(ResGen[3], "Main Effects Time Design 2x(4xS)")
-```
+    <<ResCtrl5>>
+```   
+   
 
-
-# **Figure 5. Sleep patterns during post-training and recovery sleep in young and old mice.**      
+# **Figure 5. Sleep patterns during post-training and recovery sleep in young and old mice.**     
+   
 ***   
 
 > **Figure 5.** Sleep patterns during post-training and recovery sleep in young and old mice. A-C) Percentage of total time (A), number of bouts (B), and bout length (C) in Wake, NREM, and REM during post-training sleep in young and old control mice. D-F) Percentage of total time (D), number of bouts (E), and bout length (F) in Wake, NREM and REM during recovery sleep in control and SD groups. Young control (n=11), young SD (n=11), old control (n=8), old SD (n=10). Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 5.   
-
-![](Images/Figure5.png "Figure 5")  <br>      
 
 ***   
 
  A) Percentage of total time in Wake, NREM, and REM during post-training sleep young-old control mice.
  B) Number of bouts in Wake, NREM, and REM during post-training
- C) Bout length in Wake, NREM, and REM during post-training sleep
-##    Fig 5A,B,C Sleep Post Learning {Design 2 MANOVA}
-```{r F5ABC, warning=F,message=F}
+ C) Bout length in Wake, NREM, and REM during post-training sleep   
+ 
+##    Fig 5A,B,C Sleep Post Learning {Design 2 MANOVA}   
+```{r F5ABC, fig.keep='all'}
   NmBas="Fig5A_B_C PostL"
   NmFich<-paste0(PathDesign,"PostLearn.csv");
   NmFAlL<-paste0(PathDesign,NmBas)
@@ -3155,7 +3041,6 @@ do.call(rbind, lapply(EffBb, as.data.table)))
 	NmBas="Fig6A PostL"
 	DatDTG<-DatDT[,c(1,2,9:11)]
   setnames(DatDTG, "Factor", "Age")
-  names(DatDTG)
 
   DatDTG$Age<-factor(DatDTG$Age);DatDTG$Age<-relevel(DatDTG$Age,"Young")
 	DatDTG$Subject<-factor(DatDTG$Subject)
@@ -3188,7 +3073,6 @@ do.call(rbind, lapply(EffBb, as.data.table)))
   NmBas="Fig6B PostL"
 	DatDTG<-DatDT[,c(1:5)]
   setnames(DatDTG, "Factor", "Age")
-  names(DatDTG)
   
   DatDTG$Age<-factor(DatDTG$Age);DatDTG$Age<-relevel(DatDTG$Age,"Young")
 	DatDTG$Subject<-factor(DatDTG$Subject)
@@ -3234,7 +3118,6 @@ do.call(rbind, lapply(EffBb, as.data.table)))
   NmBas="Fig6C PostL"
 	DatDTG<-DatDT[,c(1,2,6:8)]
   setnames(DatDTG, "Factor", "Age")
-  names(DatDTG)
   
   DatDTG$Age<-factor(DatDTG$Age);DatDTG$Age<-relevel(DatDTG$Age,"Young")
 	DatDTG$Subject<-factor(DatDTG$Subject)
@@ -3273,14 +3156,19 @@ do.call(rbind, lapply(EffBb, as.data.table)))
   dev.off() 
   pdf(paste0(NmFAlL,NmBas,"6C_Asterisk.pdf"),family = "ArialMT")
     plot(Grp2)
-  dev.off() 
-```
-
+  dev.off()
+  
+  # Results
+  rbResRb22
+  Kbl3(rbResRb22, "Omnibus AOV. Design 2");cat("\n")
+```   
+   
  D) Percentage of total time in Wake, NREM and REM during recovery sleep control-SR group
  E) Number of bouts in Wake, NREM and REM during recovery sleep 
- F) bout length in Wake, NREM and REM during recovery sleep 
-##     Fig 5D,E,F Sleep Recovery {2x2 MANOVA}
-```{r F5DEF, warning=F,message=F}
+ F) bout length in Wake, NREM and REM during recovery sleep   
+ 
+##     Fig 5D,E,F Sleep Recovery {2x2 MANOVA}   
+```{r F5DEF, fig.keep='all'}
   NmBas="Fig6D_E_F Recovery"
   NmFich<-paste0(PathDesign,"RecoverSleep.csv");
   NmFAlL<-paste0(PathDesign,NmBas)
@@ -3447,21 +3335,28 @@ do.call(rbind, lapply(EffBb, as.data.table)))
   pdf(paste0(NmFAlL,NmBas,"6D_Asterisk.pdf"),family = "ArialMT")
     plot(Grp2)
   dev.off()
-```
+  
+  # Results
+  rbResRb23AOV    #Omnibus AOV. Design 2x2"
+  rbResRb23Detall #Simple Effects Age-Sleep. Design 2x2
+	rbResRb23DetallExt # Extense Simple Effects Age-Sleep. Design 2x2
+	
+	Kbl3(rbResRb23AOV, "Omnibus AOV. Design 2x2");cat("\n")
+  Kbl3(rbResRb23Detall, "Simple Effects Age-Sleep. Design 2x2")
+  Kbl3(rbResRb23DetallExt, "Extense Simple Effects Age-Sleep. Design 2x2")
+```   
+   
 
-
-
-# **Figure 6. Average power spectra and relative delta (RDP) and theta (RTP).**      
+# **Figure 6. Average power spectra and relative delta (RDP) and theta (RTP).**   
+   
 ***   
-
+   
 > **Figure 6.** Average power spectra and relative delta (RDP) and theta (RTP) power during post-learning and recovery. A-D) Average NREM (A) and REM (B) power spectra and RDP in NREM (C) and RTP in REM during post-learning. E-H) Average NREM (E) and REM (F) power spectra and RDP in NREM (G) and RTP in REM (H) during recovery. RDP: 0.25-4 Hz, RTP: 4-10 Hz. Young control (n=11), young SD (n=11), old control (n=8), old SD (n=10). Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 6.   
 
-![](Images/Figure6.png "Figure 6")  <br>    
-
 ***   
-
-## Fig 6C,D Band Power PostL {Design 2}
-```{r F6CD, warning=F,message=F}
+   
+## Fig 6C,D Band Power PostL {Design 2}   
+```{r F6CD, fig.keep='all'}
   NmBas="Fig6 C_D Band Power PostL"
   NmFich<-paste0(PathDesign,"BandPowerPostL.csv");
   NmFAlL<-paste0(PathDesign,NmBas)
@@ -3471,7 +3366,7 @@ do.call(rbind, lapply(EffBb, as.data.table)))
   DatDT<-DatDTFull
   DatDT$Group<-factor(DatDT$Group);DatDT$Group<-relevel(DatDT$Group,"Young_C")
   ResFn<-ResAOV1<-list()
-  i=1
+  
   for (i in 1:5) {
     DepVar<-names(DatDTFull)[8+i]
     YuenRes<-WRS2::yuen(get(DepVar)~Group,DatDT)
@@ -3537,10 +3432,12 @@ do.call(rbind, lapply(EffBb, as.data.table)))
     plot(GrpF$C)
     ResRes
     
-    Kbl3(ResRes, "Omnibus AOV Design 2")
-```
-## Fig 6G,H Band Power Recover {Design 2*2}
-```{r F6GH, warning=F,message=F}
+    Kbl3(ResRes, "Omnibus AOV. Design 2")
+```   
+   
+   
+## Fig 6G,H Band Power Recover {Design 2*2}   
+```{r F6GH, fig.keep='all'}
   
   NmBas="Fig6G RelDeltaPowerNREM Recover"
   rrt<-ExData.2(nmF = paste0(PathDesign,"BandPowerRecover.csv"),Vars = c(4:5,9))
@@ -3561,13 +3458,7 @@ do.call(rbind, lapply(EffBb, as.data.table)))
   AlmacenGen(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=1)
   
   #Results Fig6G RelDeltaPowerNREM Recover
-    plot(Grp)
-    plot(Grp2)
-    ResGen
-    
-    Kbl3(ResGen[1], "Omnibus AOV Design 2x2")
-    Kbl3(ResGen[2], "Simple Effects Age-Sleep Design 2x2")
-    Kbl3(ResGen[3], "Extense Simple Effects Age-Sleep Design 2x2")
+    <<ResCtrl1>>
   
 NmBas="Fig6H RelThetaPowerREM Recover"
   rrt<-ExData.2(nmF = paste0(PathDesign,"BandPowerRecover.csv"),Vars = c(4:5,11))
@@ -3584,13 +3475,7 @@ NmBas="Fig6H RelThetaPowerREM Recover"
   AlmacenGen(Grp,Grp2,ResGen,PathDesign,NmBas,Typ=1)
   
   #Results Fig6H RelThetaPowerREM Recover
-    plot(Grp)
-    plot(Grp2)
-    ResGen
-    
-    Kbl3(ResGen[1], "Omnibus AOV Design 2x2")
-    Kbl3(ResGen[2], "Simple Effects Age-Sleep Design 2x2")
-    Kbl3(ResGen[3], "Extense Simple Effects Age-Sleep Design 2x2")
+    <<ResCtrl1>>
   
 # All
   rrt<-ExDataIS.2(nmF = paste0(PathDesign,"BandPowerRecover.csv"),Vars = c(4,5,7,9:12),vIntP =c(4:7),
@@ -3604,19 +3489,20 @@ NmBas="Fig6H RelThetaPowerREM Recover"
   pdf(paste0(NmFAlL,NmBas,"TodosGraphs.pdf"))
      GrpF
   dev.off()
-```
+```   
+   
 
-# **Figure 7. Spindle characteristics.**      
+# **Figure 7. Spindle characteristics.**   
+
 ***   
-
+   
 > **Figure 7.** Spindle characteristics. A) Representation of the automated spindle detection method. Top panel shows the cubed root-mean squared (RMS) of the filtered EEG computed over 750 ms windows. The spindle detection method used a two-threshold approach. These values are derived from the mean cubed RMS transform value of all the NREM traces and included both a lower threshold and upper threshold. The second panel shows the band-pass filtered EEG, followed by the unfiltered EEG signal, and the results of the spindle detection. The bottom panel shows the corresponding EMG signal. Red marks the regions of the signal where spindles are detected, 1 indicates the presence and 0 the absence of spindles, respectively. B-D) Spindle counts (B), duration (C), and frequency (D) during the post-learning sleep period. B) There were no differences between the groups in total average number of spindles, but segment analysis revealed that old control animals displayed less spindles than young control animals during the first hour post-learning. C-D) There were no differences in spindles duration (D) or frequency (D) during post-learning. E-G) Spindle numbers (E), duration (F), and frequency (G) during recovery. G) Old SD animals displayed more average total number of spindles than old controls during the 5 hr recovery sleep period. The 1 hr segment analysis indicated that the groups displayed more spindles during the last segment than the preceding one. F) There were no differences in spindles duration. G) Young SD mice displayed higher spindle frequency than old SD animals. Young control (n=11), young SD (n=11), old control (n=8), old SD (n=10). Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 7.   
-
-![](Images/Figure7.png "Figure 7")  <br>    
-
+   
 ***   
-
+   
+   
 ## Fig 7B Spindle counts during the post-learning sleep period {Design 2x((5+1)xS)   
-```{r F7B, warning=F,message=F}
+```{r F7B, }
   NmBas="Fig7B SpindCount PosL"
   NmFich<-paste0(PathDesign,"DeltaTetaSpindlePostL.csv");
   DatDTFull <- data.table(read.table(NmFich, header=TRUE, sep=";", na.strings="NA", dec=",",strip.white=TRUE))
@@ -3674,18 +3560,18 @@ NmBas="Fig6H RelThetaPowerREM Recover"
     
     #AOV 1 Global
     rbResRbGl
-    Kbl3(rbResRbGl, "Global Omnibus AOV Design 2")
+    Kbl3(rbResRbGl, "Global Omnibus AOV. Design 2")
     
     #AOV 2 For Time Details
     ResGen
-    Kbl3(ResGen[1], "Omnibus AOV Design 2x(5xS)")
-    Kbl3(ResGen[2], "Simple Effects Age-Time Design 2x(5xS)")
-    Kbl3(ResGen[3], "Main Effects Time Design 2x(5xS)")
-    
-
-```
+    Kbl3(ResGen[[1]], "Omnibus AOV. Design 2x(5xS)")
+    Kbl3(ResGen[[2]], "Simple Effects Age-Time. Design 2x(5xS)")
+    Kbl3(ResGen[[3]], "Main Effects Time. Design 2x(5xS)")
+```   
+   
+   
 ## Fig 7C Duration during the post-learning sleep period {Design 2x((5+1)xS)   
-```{r F7C, warning=F,message=F}
+```{r F7C, }
   NmBas="Fig7C AvgSpindDurat PostL"
   NmFich<-paste0(PathDesign,"DeltaTetaSpindlePostL.csv");
   DatDTFull <- data.table(read.table(NmFich, header=TRUE, sep=";", na.strings="NA", dec=",",strip.white=TRUE))
@@ -3739,17 +3625,19 @@ NmBas="Fig6H RelThetaPowerREM Recover"
     
     #AOV 1 Global
     rbResRbGl
-    Kbl3(rbResRbGl, "Global Omnibus AOV Design 2")
+    Kbl3(rbResRbGl, "Global Omnibus AOV. Design 2")
     
     #AOV 2 For Time Details
     ResGen
-    Kbl3(ResGen[1], "Omnibus AOV Design 2x(5xS)")
-    Kbl3(ResGen[2], "Simple Effects Age-Time Design 2x(5xS)")
-    Kbl3(ResGen[3], "Main Effects Time Design 2x(5xS)")
+    Kbl3(ResGen[[1]], "Omnibus AOV. Design 2x(5xS)")
+    Kbl3(ResGen[[2]], "Simple Effects Age-Time. Design 2x(5xS)")
+    Kbl3(ResGen[[3]], "Main Effects Time. Design 2x(5xS)")
   
-```
+```   
+   
+   
 ## Fig 7D Frequency during the post-learning sleep period {Design 2x((5+1)xS)   
-```{r F7D, warning=F,message=F}
+```{r F7D, }
   NmBas="Fig7D SpindFreq PostL"
   NmFich<-paste0(PathDesign,"DeltaTetaSpindlePostL.csv");
   DatDTFull <- data.table(read.table(NmFich, header=TRUE, sep=";", na.strings="NA", dec=",",strip.white=TRUE))
@@ -3804,17 +3692,18 @@ NmBas="Fig6H RelThetaPowerREM Recover"
     
     #AOV 1 Global
     rbResRbGl
-    Kbl3(rbResRbGl, "Global Omnibus AOV Design 2")
+    Kbl3(rbResRbGl, "Global Omnibus AOV. Design 2")
     
     #AOV 2 For Time Details
     ResGen
-    Kbl3(ResGen[1], "Omnibus AOV Design 2x(5xS)")
-    Kbl3(ResGen[2], "Simple Effects Age-Time Design 2x(5xS)")
-    Kbl3(ResGen[3], "Main Effects Time Design 2x(5xS)")
-```
+    Kbl3(ResGen[[1]], "Omnibus AOV. Design 2x(5xS)")
+    Kbl3(ResGen[[2]], "Simple Effects Age-Time. Design 2x(5xS)")
+    Kbl3(ResGen[[3]], "Main Effects Time Design. 2x(5xS)")
+```   
+   
 
 ## Fig 7E Spindle numbers during recovery {Design 2x2x((5+1)xS)   
-```{r F7E, warning=F,message=F}
+```{r F7E, }
   NmBas="Fig7E SpindCount Recover"
   NmFich<-paste0(PathDesign,"DeltaTetaSpindleRecover.csv");
   NmFAlL<-paste0(PathDesign,NmBas)
@@ -3885,45 +3774,19 @@ NmBas="Fig6H RelThetaPowerREM Recover"
     dev.off()
     
     #Results
-    plot(Grp)
-    plot(Grp2)
-    plot(Grp3)
-    GrpO
-    
     #AOV 1 Global
     ResGen1
-    Kbl3(ResGen1[1], "Omnibus AOV Design 2x2")
-    Kbl3(ResGen1[2], "Simple Effects Age-Sleep Design 2x2")
-    Kbl3(ResGen1[3], "Extense Simple Effects Age-Sleep Design 2x2")
+    Kbl3(ResGen1[[1]], "Omnibus AOV. Design 2x2")
+    Kbl3(ResGen1[[2]], "Simple Effects Age-Sleep. Design 2x2")
+    Kbl3(ResGen1[[3]], "Extense Simple Effects Age-Sleep. Design 2x2")
     
     #AOV 2 For Time Details
-    ResGen
-    Kbl3(ResPas = ResGen[1], lbl = "Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[2], "Interaction Age-Sleep. Design 2x2x(5xS)")
-    Kbl3(ResGen[3], "Interaction Age-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[4], "Interaction Sleep-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[5], "Main Effect Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[6], "Simple Effect Time each Age-Sleep condition. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][1], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][2], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][3], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][1], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][2], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][3], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][1], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][2], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][3], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][1], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][2], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][3], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][1], "Simple Effect Age-Sleep on Time=5 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][2], "Simple Effect Age-Sleep on Time=5 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][3], "Simple Effect Age-Sleep on Time=5 Extense Simple Effects. Design 2x2x(5xS)")
-    
-```
-
+    <<ResCtrl4>>
+```   
+   
+   
 ## Fig 7F Duration during recovery {Design 2x2x((5+1)xS)   
-```{r F7F, warning=F,message=F}
+```{r F7F, }
   NmBas="Fig7F AvgSpindDurat Recover"
   NmFich<-paste0(PathDesign,"DeltaTetaSpindleRecover.csv");
   NmFAlL<-paste0(PathDesign,NmBas)
@@ -3982,44 +3845,19 @@ NmBas="Fig6H RelThetaPowerREM Recover"
     dev.off()
     
     #Results
-    plot(Grp)
-    plot(Grp2)
-    plot(Grp3)
-    GrpO
-    
     #AOV 1 Global
     ResGen1
-    Kbl3(ResGen1[1], "Omnibus AOV Design 2x2")
-    Kbl3(ResGen1[2], "Simple Effects Age-Sleep Design 2x2")
-    Kbl3(ResGen1[3], "Extense Simple Effects Age-Sleep Design 2x2")
+    Kbl3(ResGen1[[1]], "Omnibus AOV. Design 2x2")
+    Kbl3(ResGen1[[2]], "Simple Effects Age-Sleep. Design 2x2")
+    Kbl3(ResGen1[[3]], "Extense Simple Effects Age-Sleep. Design 2x2")
     
     #AOV 2 For Time Details
-    ResGen
-    Kbl3(ResPas = ResGen[1], lbl = "Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[2], "Interaction Age-Sleep. Design 2x2x(5xS)")
-    Kbl3(ResGen[3], "Interaction Age-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[4], "Interaction Sleep-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[5], "Main Effect Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[6], "Simple Effect Time each Age-Sleep condition. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][1], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][2], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][3], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][1], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][2], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][3], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][1], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][2], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][3], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][1], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][2], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][3], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][1], "Simple Effect Age-Sleep on Time=5 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][2], "Simple Effect Age-Sleep on Time=5 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][3], "Simple Effect Age-Sleep on Time=5 Extense Simple Effects. Design 2x2x(5xS)")
-  
-```
+    <<ResCtrl4>>
+```   
+   
+   
 ## Fig 7G Frequency during recovery {Design 2x2x((5+1)xS)   
-```{r F7G, warning=F,message=F}
+```{r F7G, }
   NmBas="Fig7G SpindFreq Recover"
   NmFich<-paste0(PathDesign,"DeltaTetaSpindleRecover.csv");
   NmFAlL<-paste0(PathDesign,NmBas)
@@ -4082,54 +3920,27 @@ NmBas="Fig6H RelThetaPowerREM Recover"
     dev.off()
     
     #Results
-    plot(Grp)
-    plot(Grp2)
-    plot(Grp3)
-    GrpO
-    
     #AOV 1 Global
     ResGen1
-    Kbl3(ResGen1[1], "Omnibus AOV Design 2x2")
-    Kbl3(ResGen1[2], "Simple Effects Age-Sleep Design 2x2")
-    Kbl3(ResGen1[3], "Extense Simple Effects Age-Sleep Design 2x2")
+    Kbl3(ResGen1[[1]], "Omnibus AOV. Design 2x2")
+    Kbl3(ResGen1[[2]], "Simple Effects Age-Sleep. Design 2x2")
+    Kbl3(ResGen1[[3]], "Extense Simple Effects Age-Sleep. Design 2x2")
     
     #AOV 2 For Time Details
-    ResGen
-    Kbl3(ResPas = ResGen[1], lbl = "Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[2], "Interaction Age-Sleep. Design 2x2x(5xS)")
-    Kbl3(ResGen[3], "Interaction Age-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[4], "Interaction Sleep-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[5], "Main Effect Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[6], "Simple Effect Time each Age-Sleep condition. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][1], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][2], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][3], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][1], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][2], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][3], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][1], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][2], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][3], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][1], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][2], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][3], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][1], "Simple Effect Age-Sleep on Time=5 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][2], "Simple Effect Age-Sleep on Time=5 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][3], "Simple Effect Age-Sleep on Time=5 Extense Simple Effects. Design 2x2x(5xS)")
-```
+    <<ResCtrl4>>
+```   
+   
 
+# **Figure 8. Spindle counts during NREM/REM sigma transitions correlate with memory performance.**   
 
-# **Figure 8. Spindle counts during NREM/REM sigma transitions correlate with memory performance.**      
 ***   
 
 > **Figure 8.** Spindle counts during NREM/REM sigma transitions correlate with memory performance. A-F) Spectrograms showing NREM/REM sigma transitions and associated average spindle counts during the same transitions for controls during post-learning (A-B) and experimental and controls groups during recovery (C-F). G-H) Sum of spindle counts during the NREM/REM sigma transitions during post-learning (G) and recovery (H). I) Correlations between OPR memory performance and spindle counts during NREM/REM sigma transitions. Young control (n=11), young SD (n=11), old control (n=8), old SD (n=10). Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 8.   
 
-![](Images/Figure8.png "Figure 8")  <br>    
-
 ***   
-
-## Fig 8G Spnidle Transition PostL {Design 2x(2xS)}
-```{r 8G, warning=F,message=F}
+   
+## Fig 8G Spnidle Transition PostL {Design 2x(2xS)}   
+```{r 8G, }
   NmBas="Fig8G SpinTransPostL"
   NmFich<-paste0(PathDesign,"SpindleTransitionPostL.csv");
   NmFAlL<-paste0(PathDesign,NmBas)
@@ -4215,13 +4026,13 @@ NmBas="Fig6H RelThetaPowerREM Recover"
     plot(Grp3)
     ResGen2
     
-    Kbl3(ResGen2[1], "Omnibus AOV Design 2x2")
-  
-```
-## Fig 8H Spnidle Transition Recover {Design 2x2x(2xS)}
-```{r 8H, warning=F,message=F}
-  
-    NmBas="FigSTB_SpinTransRecover"
+    Kbl3(ResGen2[[1]], "Omnibus AOV. Design 2x2")
+```   
+   
+   
+## Fig 8H Spnidle Transition Recover {Design 2x2x(2xS)}   
+```{r 8H, }
+    NmBas="Fig8H SpinTransRecover"
     NmFAlL<-paste0(PathDesign,NmBas)
     if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
     NmFAlL<-paste0(NmFAlL,"/")
@@ -4292,29 +4103,13 @@ NmBas="Fig6H RelThetaPowerREM Recover"
       GrpO
     dev.off()
     
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    plot(Grp3)
-    GrpO
-    ResGen
-    
-    Kbl3(ResPas = ResGen[1], lbl = "Omnibus AOV. Design 2x2x(2xS)")
-    Kbl3(ResGen[2], "Interaction Age-Sleep. Design 2x2x(2xS)")
-    Kbl3(ResGen[3], "Interaction Age-Time. Design 2x2x(2xS)")
-    Kbl3(ResGen[4], "Interaction Sleep-Time. Design 2x2x(2xS)")
-    Kbl3(ResGen[5], "Main Effect Time. Design 2x2x(2xS)")
-    Kbl3(ResGen[6], "Simple Effect Time each Age-Sleep condition. Design 2x2x(2xS)")
-    Kbl3(ResGen[[7]][[1]][1], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(2xS)")
-    Kbl3(ResGen[[7]][[1]][2], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(2xS)")
-    Kbl3(ResGen[[7]][[1]][3], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(2xS)")
-    Kbl3(ResGen[[7]][[2]][1], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(2xS)")
-    Kbl3(ResGen[[7]][[2]][2], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(2xS)")
-    Kbl3(ResGen[[7]][[2]][3], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(2xS)")
-```
+    # Results
+    <<ResCtrl6>>
+```   
+   
 
-## Fig 8I Pearson r Correlations {Design 2x2}
-```{r 8I, warning=F,message=F}
+## Fig 8I Pearson r Correlations {Design 2x2}   
+```{r 8I, fig.keep='all'}
 
   NmBas="Fig8I Correlations"
   NmFAlL<-paste0(PathDesign,NmBas)
@@ -4394,21 +4189,19 @@ NmBas="Fig6H RelThetaPowerREM Recover"
 
   # Type 2 Graph Pearson r Correlation
   plot(bpp)
-  
-```
+```   
+   
 
+# **Supplemental Figure 1. Electrode placement and place cell parameters recorded.**   
 
-# **Supplemental Figure 1. Electrode placement and place cell parameters recorded.**      
 ***   
 
 > **Supplemental Figure 1.** Schematic of electrode placement and place cell parameters recorded during OPR performance. A) Schematic of electrode placements (red dots) and microphotograph showing sample lesion marking electrode placement in CA1. B-D) Mean (B), peak (C), and out of field (D) firing rate for all groups across trials. There were no differences in mean or peak firing rate between the groups throughout training (p>0.05). However, there were increases in firing rate that persisted during training (T1 to T3) when the objects were introduced across all groups [MFR: Fw(4)=1.14, p<0.007; PFR: Fw(4)=1.11, p<0.02 . Analysis of simple effects indicated that all groups displayed higher mean and peak firing rate during the first object trial and test trials (MFR: Hab xT1: Zw=1.73, p<0.04; T3 x Test: Zw=3.16, p<0.04; PFR: Hab xT1: Zw=2.08, p<0.02; T3 x Test: Zw=0.96, p<0.05]. No differences were observed in out-of- field firing rate. E-G) There were no differences during training or testing in other place cell parameters, including number of fields (E), field size (F), and spatial information content (G, p>0.05). Hab: habituation, T1-T3: training trials. Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Supplemental Figure 1.   
 
-![](Images/SupplementalFigure1.png "Supplemental Figure 1")  <br>    
-
 ***   
-
+   
 ## Fig S1B Mean firing rate {Design 2x2x(5xS)}
-```{r S1B, warning=F,message=F}
+```{r S1B, }
   NmBas="FigS1B MeanFiringRate"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -4462,38 +4255,12 @@ NmBas="Fig6H RelThetaPowerREM Recover"
       GrpO
     dev.off()
     
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    GrpO
-    plot(Grp3)
-    ResGen
-    
-    Kbl3(ResPas = ResGen[1], lbl = "Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[2], "Interaction Age-Sleep. Design 2x2x(5xS)")
-    Kbl3(ResGen[3], "Interaction Age-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[4], "Interaction Sleep-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[5], "Main Effect Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[6], "Simple Effect Time each Age-Sleep condition. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][1], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][2], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][3], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][1], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][2], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][3], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][1], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][2], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][3], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][1], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][2], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][3], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][1], "Simple Effect Age-Sleep on Time=5 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][2], "Simple Effect Age-Sleep on Time=5 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][3], "Simple Effect Age-Sleep on Time=5 Extense Simple Effects. Design 2x2x(5xS)")
+    # Results
+    <<ResCtrl4>>
 ```
 
 ## Fig S1C Peak firing rate {Design 2x2x(5xS)}
-```{r S1C, warning=F,message=F}
+```{r S1C, }
   NmBas="FigS1C PeakFiringRate"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -4548,38 +4315,12 @@ NmBas="Fig6H RelThetaPowerREM Recover"
       GrpO
     dev.off()
     
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    GrpO
-    plot(Grp3)
-    ResGen
-    
-    Kbl3(ResPas = ResGen[1], lbl = "Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[2], "Interaction Age-Sleep. Design 2x2x(5xS)")
-    Kbl3(ResGen[3], "Interaction Age-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[4], "Interaction Sleep-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[5], "Main Effect Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[6], "Simple Effect Time each Age-Sleep condition. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][1], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][2], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][3], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][1], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][2], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][3], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][1], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][2], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][3], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][1], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][2], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][3], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][1], "Simple Effect Age-Sleep on Time=5 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][2], "Simple Effect Age-Sleep on Time=5 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][3], "Simple Effect Age-Sleep on Time=5 Extense Simple Effects. Design 2x2x(5xS)")
+    # Results
+    <<ResCtrl4>>
 ```
 
 ## Fig S1D Out of field firing rate {Design 2x2x(5xS)}
-```{r S1D, warning=F,message=F}
+```{r S1D, }
   NmBas="FigS1D OutOfField"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -4621,38 +4362,12 @@ NmBas="Fig6H RelThetaPowerREM Recover"
       GrpO
     dev.off()
     
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    GrpO
-    plot(Grp3)
-    ResGen
-    
-    Kbl3(ResPas = ResGen[1], lbl = "Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[2], "Interaction Age-Sleep. Design 2x2x(5xS)")
-    Kbl3(ResGen[3], "Interaction Age-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[4], "Interaction Sleep-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[5], "Main Effect Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[6], "Simple Effect Time each Age-Sleep condition. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][1], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][2], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][3], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][1], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][2], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][3], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][1], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][2], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][3], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][1], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][2], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][3], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][1], "Simple Effect Age-Sleep on Time=5 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][2], "Simple Effect Age-Sleep on Time=5 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][3], "Simple Effect Age-Sleep on Time=5 Extense Simple Effects. Design 2x2x(5xS)")
+    # Results
+    <<ResCtrl4>>
 ```
 
 ## Fig S1E Number of fields {Design 2x2x(5xS)}
-```{r S1E, warning=F,message=F}
+```{r S1E,}
   NmBas="FigS1E NumberOfFields"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -4696,38 +4411,12 @@ NmBas="Fig6H RelThetaPowerREM Recover"
       GrpO
     dev.off()
     
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    GrpO
-    plot(Grp3)
-    ResGen
-    
-    Kbl3(ResPas = ResGen[1], lbl = "Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[2], "Interaction Age-Sleep. Design 2x2x(5xS)")
-    Kbl3(ResGen[3], "Interaction Age-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[4], "Interaction Sleep-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[5], "Main Effect Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[6], "Simple Effect Time each Age-Sleep condition. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][1], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][2], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][3], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][1], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][2], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][3], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][1], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][2], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][3], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][1], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][2], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][3], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][1], "Simple Effect Age-Sleep on Time=5 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][2], "Simple Effect Age-Sleep on Time=5 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][3], "Simple Effect Age-Sleep on Time=5 Extense Simple Effects. Design 2x2x(5xS)")
+    # Results
+    <<ResCtrl4>>
 ```
 
 ## Fig S1F Field size {Design 2x2x(5xS)}
-```{r S1F, warning=F,message=F}
+```{r S1F, }
   NmBas="FigS1F FieldSize"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -4770,38 +4459,12 @@ NmBas="Fig6H RelThetaPowerREM Recover"
       GrpO
     dev.off()
     
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    GrpO
-    plot(Grp3)
-    ResGen
-    
-    Kbl3(ResPas = ResGen[1], lbl = "Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[2], "Interaction Age-Sleep. Design 2x2x(5xS)")
-    Kbl3(ResGen[3], "Interaction Age-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[4], "Interaction Sleep-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[5], "Main Effect Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[6], "Simple Effect Time each Age-Sleep condition. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][1], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][2], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][3], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][1], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][2], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][3], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][1], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][2], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][3], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][1], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][2], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][3], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][1], "Simple Effect Age-Sleep on Time=5 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][2], "Simple Effect Age-Sleep on Time=5 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][3], "Simple Effect Age-Sleep on Time=5 Extense Simple Effects. Design 2x2x(5xS)")
+    # Results
+    <<ResCtrl4>>
 ```
 
 ## Fig S1G Spatial information content {Design 2x2x(5xS)}
-```{r S1G, warning=F,message=F}
+```{r S1G, }
   NmBas="FigS1G SpatialInfCont"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -4846,59 +4509,121 @@ NmBas="Fig6H RelThetaPowerREM Recover"
       GrpO
     dev.off()
     
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    GrpO
-    plot(Grp3)
-    ResGen
-    
-    Kbl3(ResPas = ResGen[1], lbl = "Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[2], "Interaction Age-Sleep. Design 2x2x(5xS)")
-    Kbl3(ResGen[3], "Interaction Age-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[4], "Interaction Sleep-Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[5], "Main Effect Time. Design 2x2x(5xS)")
-    Kbl3(ResGen[6], "Simple Effect Time each Age-Sleep condition. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][1], "Simple Effect Age-Sleep on Time=1 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][2], "Simple Effect Age-Sleep on Time=1 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[1]][3], "Simple Effect Age-Sleep on Time=1 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][1], "Simple Effect Age-Sleep on Time=2 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][2], "Simple Effect Age-Sleep on Time=2 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[2]][3], "Simple Effect Age-Sleep on Time=2 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][1], "Simple Effect Age-Sleep on Time=3 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][2], "Simple Effect Age-Sleep on Time=3 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[3]][3], "Simple Effect Age-Sleep on Time=3 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][1], "Simple Effect Age-Sleep on Time=4 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][2], "Simple Effect Age-Sleep on Time=4 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[4]][3], "Simple Effect Age-Sleep on Time=4 Extense Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][1], "Simple Effect Age-Sleep on Time=5 Omnibus AOV. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][2], "Simple Effect Age-Sleep on Time=5 Simple Effects. Design 2x2x(5xS)")
-    Kbl3(ResGen[[7]][[5]][3], "Simple Effect Age-Sleep on Time=5 Extense Simple Effects. Design 2x2x(5xS)")
-```
+    # Results
+    <<ResCtrl4>>
+```    
+   
+## Fig S1H Cluster Quality L-ratio  {Design 2x2x(5xS)}   
+```{r FS1H,}
+  NmBas="FigS1H LRatio"
+  NmFAlL<-paste0(PathDesign,NmBas)
+    if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
+    NmFAlL<-paste0(NmFAlL,"/")
 
-# **Supplemental Figure 2. Detection of remapping threshold.**      
+  rrt<-ExDataIS.2(nmF = paste0(PathDesign,"ClusterQuality.csv"),Vars = c(1,5,6,12:16),vIntP =c(4:8),lvlCh = list("HAB"="LR_s1", "T1"="LR_s2","T2"="LR_s3","T3"="LR_s4","Test"="LR_s5"))
+  DatDT<-rrt$DT
+  ArP<-rrt$Arp
+  ExtendDT<-rrt$ExtendDT
+  
+  # Simple Effects
+  DatEfS<-list()
+  for(is in 1:5) {
+    DatEfS[[is]]<-ExData.2(nmF = paste0(PathDesign,"ClusterQuality.csv"),Vars = c(5:6,(11+is)))
+    names(DatEfS[[is]]$DT)[3]<-"DepV"
+  }
+  
+  #Graphs
+  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Cluster Quality", "","L-Ratio"),ylmP =c(0,10),hLin = F,lvIp=5)
+  Grp2=Grp
+    
+    #AOV
+    names(rrt$DT)[4:8]<-c("T1","T2","T3","T4","T5")
+    ResGen<-AOVMx2.5(A=2,B=2,C=5,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 1000,nBMM2 = 1000,Prc = 2)
+    AlmacenGen2(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=2)
+  
+  # Other Graphs
+    GrpO<-Grph.3.Otros(ExtendDT,LblsP =c("Cluster Quality", "I","L-Ratio"))
+    
+    ExtendDTCol<-copy(ExtendDT)
+    ExtendDTCol$Moment<-"All"
+    ExtendDTCol<-data.table(rbind(ExtendDT,ExtendDTCol))
+    
+    Grp3<-Grph.3(DatP = ExtendDTCol,"OPR",LblsP =c("Cluster Quality", "I","L-Ratio"),
+                 ylmP =c(0,10),hLin = F,lvIp = 6,wMain = T)
+   
+    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
+      Grp3
+      GrpO
+    dev.off()
+    
+    <<ResCtrl4>>
+```   
+   
+## Fig S1I Unmoved L-Ratio {Design 2x(5xS)}   
+```{r S1I, }
+  NmBas="FigS1I UnMovedLRatio"
+  NmFAlL<-paste0(PathDesign,NmBas)
+  if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
+  NmFAlL<-paste0(NmFAlL,"/")
+  ResGen<-NA
+    
+  rrt<-ExDataIS.3c(nmF = paste0(PathDesign,"ClusterQualityNonMovedControl.csv"),Vars = ,c(4,5,1,11:15),vIntP =c(4:8),lvlCh = list("HAB"="LR_s1", "T1"="LR_s2","T2"="LR_s3","T3"="LR_s4","Test"="LR_s5"))
+  DatDT<-rrt$DT
+  ArP<-rrt$Arp
+  ExtendDT<-rrt$ExtendDT
+  
+  #Graphs
+  Grp<- Grph.3b(DatP = ExtendDT,"OPR",LblsP =c("Cluster Quality", "","L-Ratio"),ylmP =c(0,10),hLin = F,lvIp = 5,GrpSel = c(1,3))
+
+  Grp2=Grp
+  
+  #AOV
+  names(rrt$DT)[3:7]<-c("T1","T2","T3","T4","T5")
+  ResGen<-AOVMx2b(A=2,C=5,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 10000,nBMM2 = 1000,Prc = 2)
+  AlmacenGen(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=1)
+  
+   # Other Graphs
+    ExtendDTCol<-copy(ExtendDT)
+    ExtendDTCol$Moment<-"All"
+    ExtendDTCol<-data.table(rbind(ExtendDT,ExtendDTCol))
+    
+    Grp3<- Grph.3b(DatP = ExtendDTCol,"OPR",LblsP =c("Cluster Quality", "","L-Ratio"),ylmP =c(0,10),hLin = F,lvIp = 6,GrpSel = c(1,3),wMain = T)
+    
+    ExtendCpy<-copy(ExtendDT)
+    names(ExtendCpy)[1]<-"Age"
+    GrpO<-Grph.3.Otrosb(ExtendDTp = ExtendCpy,LblsP =c("Cluster Quality", "","L-Ratio"))
+    
+    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
+      Grp3
+      GrpO
+    dev.off()
+
+    <<ResCtrl2>>
+```   
+   
+   
+# **Supplemental Figure 2. Detection of remapping threshold.**   
+
 ***   
 
 > **Supplemental Figure 2.** Detection of remapping threshold. A-B) Scatter plots showing correlations between Hab/T1 and T1/T2 in young (A) and old (B) animals. Blue ellipse contains correlation values that display high stability on both Hab/T1 and T1/T2, green ellipse contains correlation values that display low stability in Hab/T1 but high stability in T1/T2, red ellipse contains correlation values that display low stability in both Hab/T1 and T1/T2 comparisons. C) Histogram showing cell counts for all correlations. Low stability cells are shown in red, whereas high stability cells are shown in blue. Note that the distributions are not normal, which justified the selection of robust statistics for all the analyses. The threshold of 0.35 best separated stable and unstable correlations. D-E) Results of a machine learning algorithm, MATLAB as kmeans, used to approximate the threshold to determine stability. The algorithm was instructed to group the data into 3 categories using correlation values from young (D) and old (E) mice. Means for each category are indicated by black squares. In both graphs the best approximation coincided with a threshold value of 0.35.  These data demonstrate that using scatter plots, histogram distributions, and machine learning algorithms, the threshold of 0.35 is the best value to categorize cell types.   
 
-![](Images/SupplementalFigure2.png "Supplemental Figure 2")  <br>    
-
 ***   
+   
 
+# **Supplemental Figure 3. Bayes classifier validation.**   
 
-# **Supplemental Figure 3. Bayes classifier validation.**      
 ***   
 
 > **Supplemental Figure 3.** Bayes classifier validation. A) Photograph of the SD chamber. B) Representative 5 hr sleep recording showing electroencephalogram (EEG, top panel) and electromyograph (EMG, bottom panel) color-coded using the output of a Bayes classifier. The color-coded EEG and EMG trace illustrates the accuracy of the classifier detecting Wake, NREM and REM periods. C-D) Average normalized confusion matrices for young (C) and old (D) mice. To determine the accuracy, sensitivity and specificity of the classifier, a confusion matrix was created by comparing visual and algorithm scored data in 4 young and 4 old mice. The results of this comparison were summed into the matrix for each animal. Each entry was then divided by the total number of epochs and multiplied by 100 to turn the values into percentages. Average confusion matrices were computed for young (C) and old (D) mice. E) Accuracy of the Bayes classifier for young and old mice. F) Receiver operating characteristic (ROC) curve showing average values of sensitivity (true positive rates) against false positive rates (1-specificity) for Wake, NREM, and REM in young and old mice.  The high accuracy of the classifier is illustrated by the fact that all values are plotted in the upper left area, indicating high sensitivity and low fallout errors.   
 
-![](Images/SupplementalFigure3.png "Supplemental Figure 3")  <br>    
-
 ***   
 
 E) Accuracy of the Bayes classifier for young and old mice
-F) Receiver operating characteristic (ROC) curve
-```{r S3EF, warning=F,message=F}
-  NmBas="FigS3EF BayesClassifier"
+F) Receiver operating characteristic (ROC) curve   
+
+```{r S3EF, fig.keep='all'}
+  NmBas="FigS3E_F BayesClassifier"
   NmFich<-paste0(PathDesign,"SensAnalysisAll.csv");
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -5044,9 +4769,9 @@ Grp4<-g2+ geom_point(size=3.5)  + xlim(0,1) +  ylim(0,1) + geom_abline(intercept
   ResROC$Acc
   ResROC$ROCAll
   ResROC$ROCMeans  
-  Kbl3(ResPas = ResROC[1], lbl = "Accuracy Analysis")
-  Kbl3(ResPas = ResROC[2], lbl = "ROC Analysis All Data")
-  Kbl3(ResPas = ResROC[3], lbl = "ROC Analysis Means")
+  Kbl3(ResPas = ResROC[[1]], lbl = "Accuracy Analysis")
+  Kbl3(ResPas = ResROC[[2]], lbl = "ROC Analysis All Data")
+  Kbl3(ResPas = ResROC[[3]], lbl = "ROC Analysis Means")
   
   # Accuracy Graph
     plot(Grp2)
@@ -5054,22 +4779,20 @@ Grp4<-g2+ geom_point(size=3.5)  + xlim(0,1) +  ylim(0,1) + geom_abline(intercept
     plot(Grp3)
   # ROC with means
     plot(Grp4)
-```
+```   
+   
 
-
-
- **Supplemental Figure 4. Power spectra during NREM and REM.**      
-***   
-
-> **Supplemental Figure 4.** Power spectra during NREM and REM during post-learning and recovery and relative sigma (RSP) and beta (RBP) power. A-F) NREM and REM average (red) and individual (gray) power spectra during post-learning (A-B) and recovery (C-F) for all age groups and sleep conditions. G-J) RSP and RBP did not show differences during post-learning (G-H) or recovery (I-J). Statistical details in Supplemental Statistical Table corresponding to Supplemental Figure 4.    
-
-![](Images/SupplementalFigure4.png "Supplemental Figure 4")  <br>    
+# **Supplemental Figure 4. Power spectra during NREM and REM.**    
 
 ***   
 
-## Fig S4G,H Band Power PostL {Design 2}
-```{r S4GH, warning=F,message=F}
-  NmBas="FigS4 G_H Band Power PostL"
+> **Supplemental Figure 4.** Power spectra during NREM and REM during post-learning and recovery and relative sigma (RSP) and beta (RBP) power. A-F) NREM and REM average (red) and individual (gray) power spectra during post-learning (A-B) and recovery (C-F) for all age groups and sleep conditions. G-J) RSP and RBP did not show differences during post-learning (G-H) or recovery (I-J). Statistical details in Supplemental Statistical Table corresponding to Supplemental Figure 4.   
+   
+***   
+   
+## Fig S4G,H Band Power PostL {Design 2}   
+```{r S4GH, fig.keep='all'}
+  NmBas="FigS4G_H Band Power PostL"
   NmFich="BandPowerPostL.csv";
   NmFich<-paste0(PathDesign,NmFich);
   NmFAlL<-paste0(PathDesign,NmBas)
@@ -5145,10 +4868,11 @@ Grp4<-g2+ geom_point(size=3.5)  + xlim(0,1) +  ylim(0,1) + geom_abline(intercept
     plot(GrpF$D)
     ResRes
     
-    Kbl3(ResRes, "Omnibus AOV Design 2")
-```
-## Fig S4I,J Band Power Recover {Design 2*2}
-```{r S4IJ, warning=F,message=F}
+    Kbl3(ResRes, "Omnibus AOV. Design 2")
+```   
+   
+## Fig S4I,J Band Power Recover {Design 2*2}   
+```{r S4IJ, }
   
   NmBas="FigS4I RelSigmaPowerNREM Recover"
   rrt<-ExData.2(nmF = paste0(PathDesign,"BandPowerRecover.csv"),Vars = c(4:5,10))
@@ -5165,13 +4889,7 @@ Grp4<-g2+ geom_point(size=3.5)  + xlim(0,1) +  ylim(0,1) + geom_abline(intercept
   AlmacenGen(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=1)
   
   #Results FigS4I RelSigmaPowerNREM Recover
-    plot(Grp)
-    plot(Grp2)
-    ResGen
-    
-    Kbl3(ResGen[1], "Omnibus AOV Design 2x2")
-    Kbl3(ResGen[2], "Simple Effects Age-Sleep Design 2x2")
-    Kbl3(ResGen[3], "Extense Simple Effects Age-Sleep Design 2x2")
+    <<ResCtrl1>>
   
 NmBas="FigS4J RelBetaPowerREM Recover"
   rrt<-ExData.2(nmF = paste0(PathDesign,"BandPowerRecover.csv"),Vars = c(4:5,11))
@@ -5189,13 +4907,7 @@ NmBas="FigS4J RelBetaPowerREM Recover"
   AlmacenGen(Grp,Grp2,ResGen,PathDesign,NmBas,Typ=1)
   
   #Results FigS4J RelBetaPowerREM Recove
-    plot(Grp)
-    plot(Grp2)
-    ResGen
-    
-    Kbl3(ResGen[1], "Omnibus AOV Design 2x2")
-    Kbl3(ResGen[2], "Simple Effects Age-Sleep Design 2x2")
-    Kbl3(ResGen[3], "Extense Simple Effects Age-Sleep Design 2x2")
+    <<ResCtrl1>>
   
 # All
   rrt<-ExDataIS.2(nmF = paste0(PathDesign,"BandPowerRecover.csv"),Vars = c(4,5,7,9:12),vIntP =c(4:7),
@@ -5210,6 +4922,6 @@ NmBas="FigS4J RelBetaPowerREM Recover"
      GrpF
   dev.off()
 ```
-
-
-
+   
+***   
+   
