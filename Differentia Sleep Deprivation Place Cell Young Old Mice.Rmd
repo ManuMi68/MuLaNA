@@ -2117,17 +2117,30 @@ do.call(rbind, lapply(EffBb, as.data.table)))
 ```
 
 ***   
+   
 
 # **Figure 1. Object place recognition (OPR) behavioral performance**  
 
 ***   
 
-> **Figure 1.** Object place recognition (OPR) behavioral performance. A) Schematic of behavioral design. B) Percent change in preference for displaced object [number of animals (n): young control (YC): n=16, young SD (YSD): n=15, old control (OC): n=13, old SD (OSD): n=15]. C) Percent change in preference for the unmoved objects. D) Total time of object exploration during training and testing in seconds (s). E) Percent change in preference for displaced object excluding trial 1. F) Percent change in preference for displaced object in young (n=7) and old (n=7) mice receiving delayed SD, 5 hr after training (YSD: n=6, OSD: n=7). G) Levels of plasma corticosterone in control (young: n=5; old: n=5) and SD (young: n=5; old: n=6) mice. In all Figures data are graphed using Box Plots according to robust statistics based on the median. The inner line corresponds to the median, the lower box represents the first quartile, the upper box the third quartile, and the extending lines, known as whiskers, represent the minimum and maximum, showing the extent of variability. The diamond represents the trimmed mean (e.g., adjusted average without outliers) used for analysis, which was set at 0.2, according to robust statistics recommendations (Wilcox, 2012) for all age groups and sleep conditions. T1-T3: training trials. Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 1.   
+> **Figure 1.** Object place recognition (OPR) behavioral performance. A) Schematic of behavioral
+design. B) Percent change in preference for displaced object [number of animals (n): young
+control (YC):n=16, young SD (YSD): n=15, old control (OC): n=13, old SD (OSD): n=15]. C)
+Percent change in preference for the unmoved objects. D) Total time of object exploration during
+training and testing in seconds (s). E) Percent change in preference for displaced object excluding
+trial 1. F) Percent change in preference for displaced object in young (n=7) and old (n=7) mice
+receiving delayed SD, 5 hr after training (YSD: n=6, OSD: n=7). G) Levels of plasma
+corticosterone in control (young: n=5; old: n=5) and SD (young: n=5; old: n=6) mice. In all Figures
+data are graphed using Box Plots according to robust statistics based on the median. The inner
+line corresponds to the median, the lower box represents the first quartile, the upper box the third
+quartile, and the extending lines, known as whiskers, represent the minimum and maximum,
+showing the extent of variability. The diamond represents the trimmed mean used for analysis,
+which was set at 0.2, according to robust statistics recommendations (Wilcox, 2012) for all age
+groups and sleep conditions. T1-T3: training trials. Asterisks (*) represent significance using
+alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 1.   
 
 
 ***   
-
-
 
 ## Fig 1B Percent change in preference for displaced object {Design 2x2}   
 ```{r F1B, }
@@ -2163,41 +2176,8 @@ do.call(rbind, lapply(EffBb, as.data.table)))
 ```   
    
    
-## Fig 1C Percent change in preference for the unmoved objects {Design 2x2}   
-```{r F1C, }
-  NmBas="Fig1C PreferenceUnmoved"
-  ResGen<-NA
-  
-  rrt<-ExData.2(nmF = paste0(PathDesign,"Preference.csv"),Vars = c(1:3))
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  
-  #Graphs
-  Grp<- Grph.2(DatDT,"Preference",LblsP =c("Preference for Unmoved Objects", "","% Change in Object Preference"),c(-25,25),T)
-  
-  Grp2<- Grp + geom_signif(annotation="*",
-              y_position=17, xmin=1  , xmax=2, 
-              tip_length = c(0.02, 0.02),vjust=0.5,textsize=10) +
-    geom_signif(annotation="*",
-              y_position=12, xmin=3  , xmax=4, 
-              tip_length = c(0.02, 0.02),vjust=0.5,textsize=10)+
-    geom_signif(annotation="*",
-              y_position=10, xmin=1  , xmax=3, 
-              tip_length = c(0.02, 0.02),vjust=0.5,textsize=10)+
-    geom_signif(annotation="*",
-              y_position=15, xmin=2  , xmax=4, 
-              tip_length = c(0.02, 0.02),vjust=0.5,textsize=10)
-  
-  
-    # AOV & Simple Effects
-    names(rrt$DT)[3]<-"DepV"
-    ResGen<-AOVBwF(2,2,DatPas = rrt,nBMM = 10000)
-    AlmacenGen(Grp,Grp2,ResGen,PathDesign,NmBas,Typ=1)
-    
-    <<ResCtrl1>>
-```   
    
-   
+
 ## Fig 1D Total time of object exploration during training and testing in seconds (s) {Design 2x2x(4xS)}   
 ```{r F1D, }
   NmBas="Fig1D ObjectExploration"
@@ -2255,39 +2235,8 @@ do.call(rbind, lapply(EffBb, as.data.table)))
     <<ResCtrl3>>
 ```
 
-## Fig 1E Percent change in preference for displaced object excluding trial 1 {Design 2x2}   
-```{r F1E, }
-  NmBas="Fig1E OPRWithoutT1"
-  ResGen<-NA
-  
-  rrt<-ExData.2(nmF = paste0(PathDesign,"OPR.csv"),Vars = c(1:2,4))
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  
-  #Graphs
-  Grp<- Grph.2(DatDT,"OPRSinT1",LblsP =c("Preference for Displaced Object", "","% Change in Object Preference"),c(-40,50),T)
-  
-  Grp2<- Grp + geom_signif(annotation="*",
-              y_position=50, xmin=1  , xmax=2, 
-              tip_length = c(0.02, 0.02),vjust=0.5,textsize=10) +
-    geom_signif(annotation="*",
-              y_position=40, xmin=3  , xmax=4, 
-              tip_length = c(0.02, 0.02),vjust=0.5,textsize=10)+
-    geom_signif(annotation="*",
-              y_position=35, xmin=1  , xmax=3, 
-              tip_length = c(0.02, 0.02),vjust=0.5,textsize=10)+
-    geom_signif(annotation="*",
-              y_position=45, xmin=2  , xmax=4, 
-              tip_length = c(0.02, 0.02),vjust=0.5,textsize=10)
-  
-    # AOV & Simple Effects
-    names(rrt$DT)[3]<-"DepV"
-    ResGen<-AOVBwF(2,2,DatPas = rrt,nBMM = 10000)
-    AlmacenGen(Grp,Grp2,ResGen,PathDesign,NmBas,Typ=1)
-    
-    <<ResCtrl1>>
-```
-
+   
+   
 ## Fig 1F Percent change in preference for displaced object in young and old mice receiving delayed SD 5 hr after training {Design 2}   
 ```{r F1F, }
   NmBas="Fig1F OPRDelayed"
@@ -2315,42 +2264,56 @@ do.call(rbind, lapply(EffBb, as.data.table)))
     ResFn
 ```
 
-## Fig 1G Levels of plasma corticosterone in control and SD mice {Design 2x2}   
-```{r F1G, }
-  NmBas="Fig1G Cortisol"
-  ResGen<-NA
-  
-  rrt<-ExData.2(nmF = paste0(PathDesign,"Cortisol.csv"),Vars = c(1:4))
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  
-  #Graphs
-  Grp<- Grph.2(DatDT,"cortisol",LblsP =c("Preference for Displaced Object", "","Corticosterone (ng/ml)"),c(0,200),F)
-  
-  Grp2<-Grp + 
-    geom_signif(annotation=c("","","*"),
-              y_position=c(190,195,200),
-              xmin=c(1,2, 1.9),
-              xmax=c(3,4, 3), 
-              tip_length = c(c(0.02, 0.02),c(0.02, 0.02),c(0.08, 0.02)),vjust=0.5,textsize=10)
+   
 
-  # AOV & Simple Effects
-  names(rrt$DT)[4]<-"DepV"
-  ResGen<-AOVBwF(2,2,DatPas = rrt,nBMM = 10000)
-  AlmacenGen(Grp,Grp2,ResGen,PathDesign,NmBas,Typ=1)
+## Fig 1C,1E,1G {Design 2x2}   
+```{r, eval=F}
   
-  <<ResCtrl1>>
-```   
+# Command selection. Copy the rest of the lines of code from the chunk of the reference figure and in the same order.
+  # Fig 1C Percent change in preference for the unmoved objects {Design 2x2}
+  # As Fig.1B
+    rrt<-ExData.2(nmF = paste0(PathDesign,"Preference.csv"),Vars = c(1:3))
+    Grp<- Grph.2(DatDT,"Preference",LblsP =c("Preference for Unmoved Objects", "","% Change in Object Preference"),c(-25,25),T)
+    ResGen<-AOVBwF(2,2,DatPas = rrt,nBMM = 10000)
     
+  # Fig 1E Percent change in preference for displaced object excluding trial 1 {Design 2x2}
+  # As Fig.1B
+    rrt<-ExData.2(nmF = paste0(PathDesign,"OPR.csv"),Vars = c(1:2,4))
+    Grp<- Grph.2(DatDT,"OPRSinT1",LblsP =c("Preference for Displaced Object", "","% Change in Object Preference"),c(-40,50),T)
+    ResGen<-AOVBwF(2,2,DatPas = rrt,nBMM = 10000)
+  
+  # Fig 1G Levels of plasma corticosterone in control and SD mice {Design 2x2}
+  # As Fig.1B
+    rrt<-ExData.2(nmF = paste0(PathDesign,"Cortisol.csv"),Vars = c(1:4))
+    Grp<- Grph.2(DatDT,"cortisol",LblsP =c("Preference for Displaced Object", "","Corticosterone (ng/ml)"),c(0,200),F)
+    ResGen<-AOVBwF(2,2,DatPas = rrt,nBMM = 10000)
+```       
     
 ***   
    
+
+
+
+
 
 # **Figure 2. Rate and global remapping across sessions and percentage.**   
 
 ***   
 
-> **Figure 2.** Rate and global remapping across sessions and percentage of different cell types during OPR performance. A) OPR performance comparing tetrode, EEG/EMG and all implanted animals. B) Isolation distance showing absence of differences in spike cluster quality across conditions over time. C) Average rate remapping for all groups across trials. Young controls and old SD mice displayed higher rate remapping during the test trial in comparison to the last training trial (T3). Additionally, these groups also displayed more rate remapping than young SD mice during the test. D) Average global remapping (map similarity) for all groups across trials. Old animals displayed more remapping (i.e., instability) than young mice between the habituation and trial 1 and during testing. E-F) Percentage of context, object configuration, and unstable cells recorded in young (E) and old (F) mice. Young controls: 6 mice, 60 cells, range of cells per animal: 6-16, young SD: 4 mice, 50 cells, range of cells per animal: 8-18, old control: 5 mice, 36 cells, range of cells per animal: 5-13, old SD: 5 mice, 41 cells: range of cells per animal: 4-13. Hab: habituation, T1-T3: training trials. Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 2.   
+> **Figure 2.** Rate and global remapping across sessions and percentage of different cell types
+during OPR performance. A) OPR performance comparing tetrode, EEG/EMG and all implanted
+animals. B) Isolation distance showing absence of differences in spike cluster quality across
+conditions over time. C) Average rate remapping for all groups across trials. Young controls and
+old SD mice displayed higher rate remapping during the test trial in comparison to the last training
+trial (T3). Additionally, these groups also displayed more rate remapping than young SD mice
+during the test. D) Average global remapping (map similarity) for all groups across trials. Old
+animals displayed more remapping (i.e., instability) than young mice between the habituation and
+trial 1 and during testing. E-F) Percentage of context, object configuration, and unstable cells
+recorded in young (E) and old (F) mice. Young controls: 6 mice, 60 cells, range of cells per animal:
+6-16, young SD: 4 mice, 50 cells, range of cells per animal: 8-18, old control: 5 mice, 36 cells,
+range of cells per animal: 5-13, old SD: 5 mice, 41 cells: range of cells per animal: 4-13. Hab:
+habituation, T1-T3: training trials. Asterisks (*) represent significance using alpha=0.05. Statistical
+details in Supplemental Statistical Table corresponding to Figure 2.   
 
 ***   
    
@@ -2482,136 +2445,29 @@ do.call(rbind, lapply(EffBb, as.data.table)))
 ```   
    
    
-## Fig 2C Average rate remapping for all groups across trials {Design 2x2x(4xS)}   
-```{r F2C, }
-  NmBas="Fig2C RateRemap"
-  NmFAlL<-paste0(PathDesign,NmBas)
-  if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
-  NmFAlL<-paste0(NmFAlL,"/")
-  ResGen<-NA
-  
-  rrt<-ExDataIS.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = ,c(1,5,6,32:35),vIntP =c(4:7),lvlCh = list("HABxT1"="RatRemap_Hab.S1", "T1xT2"="RatRemap_S1.S2","T2xT3"="RatRemap_S2.S3","T3xTest"="RatRemap_S3.test"))
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  ExtendDT<-rrt$ExtendDT
-  
-  # Para Ef Simples:
-  DatEfS<-list()
-  for(is in 1:4) {
-    DatEfS[[is]]<-ExData.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = c(5,6,(31+is)))
-    names(DatEfS[[is]]$DT)[3]<-"DepV"
-  }
-  
-  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Rate and Global Remapping", "","Rate Remapping (Hz)"),ylmP =c(0,6),hLin = F,lvIp = 4)
-  
-  levBp<-seq(0.7, 5, by=0.2)
-  Grp2<- Grp + geom_signif(annotation="*",
-              y_position=5, xmin=levBp[1+15]  , xmax=levBp[2+15], 
-              tip_length = c(0.02, 0.02),textsize=6) +
-    geom_signif(annotation="*",
-              y_position=5.2, xmin=levBp[2+15]  , xmax=levBp[4+15], 
-              tip_length = c(0.02, 0.02),textsize=6)+
-    geom_signif(annotation="*",
-              y_position=4.8, xmin=levBp[1+10]  , xmax=levBp[1+15], 
-              tip_length = c(0.02, 0.02),textsize=6)+
-    geom_signif(annotation="*",
-              y_position=5.5, xmin=levBp[4+10]  , xmax=levBp[4+15], 
-              tip_length = c(0.02, 0.02),textsize=6)
-  
-    #AOV
-    names(rrt$DT)[4:7]<-c("T1","T2","T3","T4")
-    ResGen<-AOVMx2(A=2,B=2,C=4,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 10000,nBMM2 = 1000,Prc = 2)
-    AlmacenGen2(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=2)
-  
-  # Other Graphs
-    GrpO<-Grph.3.Otros(ExtendDT,LblsP =c("Rate and Global Remapping", "A","Rate Remapping (Hz)"))
-    
-    ExtendDTCol<-copy(ExtendDT)
-    ExtendDTCol$Moment<-"All"
-    ExtendDTCol<-data.table(rbind(ExtendDT,ExtendDTCol))
-  
-    Grp3<-Grph.3(DatP = ExtendDTCol,"OPR",LblsP =c("Rate and Global Remapping", "A","Rate Remapping (Hz)"),ylmP=c(0,6), hLin = F,lvIp = 5,wMain = T)
-   
-    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
-      Grp3
-      GrpO
-    dev.off()
+## Fig 2C, 2D {Design 2x2x(4xS)}   
+```{r , eval=F}
 
-    <<ResCtrl3>>
+# Command selection. Copy the rest of the lines of code from the chunk of the reference figure and in the same order.
+  #  Fig 2C Average rate remapping for all groups across trials {Design 2x2x(4xS)}
+  # As Fig.2B. 
+  rrt<-ExDataIS.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = ,c(1,5,6,32:35),vIntP =c(4:7),lvlCh = list("HABxT1"="RatRemap_Hab.S1", "T1xT2"="RatRemap_S1.S2","T2xT3"="RatRemap_S2.S3","T3xTest"="RatRemap_S3.test"))
+  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Rate and Global Remapping", "","Rate Remapping (Hz)"),ylmP =c(0,6),hLin = F,lvIp = 4)
+  names(rrt$DT)[4:7]<-c("T1","T2","T3","T4")
+  ResGen<-AOVMx2(A=2,B=2,C=4,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 10000,nBMM2 = 1000,Prc = 2)
+  <<ResCtrl3>> #Include here the chunk called ResCtrl3
+  
+  # Fig 2D Average global remapping (map similarity) for all groups across trials {Design 2x2x(4xS)}    
+  #As Fig.2B
+  rrt<-ExDataIS.2b(nmF = paste0(PathDesign,"Cell_types (ANOVA_Overall_correlations).csv"),Vars = ,c(3,4,12,7:10),vIntP =c(4:7),lvlCh = list("HABxT1"="s1xs2", "T1xT2"="s2xs3","T2xT3"="s3xs4","T3xTest"="s4xs5"))
+  #Graphs
+  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Rate and Global Remapping", "","Similarity Score"),ylmP =c(-0.5,1),hLin = T,lvIp = 4)
+  names(rrt$DT)[4:7]<-c("T1","T2","T3","T4")
+  ResGen<-AOVMx2(A=2,B=2,C=4,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 10000,nBMM2 = 1000,Prc = 2)
+  <<ResCtrl3>> #Include here the chunk called ResCtrl3
 ```   
    
 
-## Fig 2D Average global remapping (map similarity) for all groups across trials {Design 2x2x(4xS)}   
-```{r F2D, }
-  NmBas="Fig2D GlobalRemapAllCells"
-  NmFAlL<-paste0(PathDesign,NmBas)
-  if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
-  NmFAlL<-paste0(NmFAlL,"/")
-  ResGen<-NA
-  
-  rrt<-ExDataIS.2b(nmF = paste0(PathDesign,"Cell_types (ANOVA_Overall_correlations).csv"),Vars = ,c(3,4,12,7:10),vIntP =c(4:7),lvlCh = list("HABxT1"="s1xs2", "T1xT2"="s2xs3","T2xT3"="s3xs4","T3xTest"="s4xs5"))
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  ExtendDT<-rrt$ExtendDT
-  
-  # For Simple Effects:
-  DatEfS<-list()
-  for(is in 1:4) {
-    DatEfS[[is]]<-ExData.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = c(5,6,(31+is)))
-    names(DatEfS[[is]]$DT)[3]<-"DepV"
-  }
-  
-  #Graphs
-  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Rate and Global Remapping", "","Similarity Score"),ylmP =c(-0.5,1),hLin = T,lvIp = 4)
-  
-  levBp<-seq(0.7, 5, by=0.2)
-  Grp2<- Grp +
-    geom_signif(annotation=c("","","*"),
-              y_position=c(0.95,0.95,1),
-              xmin=c(levBp[1],levBp[3], mean(levBp[c(1,2)])),
-              xmax=c(levBp[2],levBp[4], mean(levBp[c(3,4)])), 
-              tip_length = c(0.02, 0.02),vjust = 0.5,textsize=6)+
-    geom_signif(annotation=c("","","*"),
-              y_position=c(0.95,0.95,1),
-              xmin=c(levBp[1+15],levBp[3+15], mean(levBp[c(1+15,2+15)])),
-              xmax=c(levBp[2+15],levBp[4+15], mean(levBp[c(3+15,4+15)])), 
-              tip_length = c(0.02, 0.02),vjust = .5,textsize=6)+
-    geom_signif(annotation=c("","","*"),
-              y_position=c(0.8,0.82,0.85),
-              xmin=c(levBp[1+15],levBp[2+15], mean(levBp[c(1+15,3+15)])-.1),
-              xmax=c(levBp[3+15],levBp[4+15], mean(levBp[c(2+15,4+15)])), 
-              tip_length = c(0.02, 0.02),vjust = .5,textsize=6)+
-    geom_signif(annotation=c("","","*"),
-              y_position=c(-0.45,-0.45,-0.5),
-              xmin=c(levBp[1],levBp[1+5], mean(levBp[c(1,4)])),
-              xmax=c(levBp[4],levBp[4+5], mean(levBp[c(1+5,4+5)])), 
-              tip_length = c(-0.02, -0.02),vjust = 2,textsize=6)+
-    geom_signif(annotation=c("","","*"),
-              y_position=c(-0.45,-0.45,-0.5),
-              xmin=c(levBp[1+10],levBp[1+15], mean(levBp[c(1+10,4+10)])),
-              xmax=c(levBp[4+10],levBp[4+15], mean(levBp[c(1+15,4+15)])), 
-              tip_length = c(-0.02, -0.02),vjust = 2,textsize=6)
-  
-    #AOV
-    names(rrt$DT)[4:7]<-c("T1","T2","T3","T4")
-    ResGen<-AOVMx2(A=2,B=2,C=4,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 10000,nBMM2 = 1000,Prc = 2)
-    AlmacenGen2(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=2)
-  
-  # Other Graphs
-    GrpO<-Grph.3.Otros(ExtendDT,LblsP =c("Rate and Global Remapping", "B","Similarity Score"))
-    
-    ExtendDTCol<-copy(ExtendDT)
-    ExtendDTCol$Moment<-"All"
-    ExtendDTCol<-data.table(rbind(ExtendDT,ExtendDTCol))
-    Grp3<-Grph.3(DatP = ExtendDTCol,"OPR",LblsP =c("Rate and Global Remapping", "B","Similarity Score"),ylmP=c(-0.5,1), hLin = T,lvIp = 5,wMain = T)
-    
-    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
-      Grp3
-      GrpO
-    dev.off()
-    
-    <<ResCtrl3>>
-```
    
 ***   
 
@@ -2622,7 +2478,27 @@ do.call(rbind, lapply(EffBb, as.data.table)))
 
 ***   
 
-> **Figure 3.** Cell-type remapping across sessions during performance in the OPR task. A) Schematic indicating how similarity scores were computed. B-D) Average global remapping of context (B), object configuration (C), and unstable (D) cells across trials and corresponding examples of color-coded place cell rate maps, trajectory spike maps, and waveforms. Context cells are only unstable in the old control group, suggesting that poor performance in this group stems from inability to recall the context. Conversely, object configuration cells, which by definition remap when the objects are introduced, display intermediate levels of stability in young controls and old SD, the groups that show successful performance in the OPR task. Conversely, poor OPR performance is associated with either too much object configuration stability (young SD animals) or too much object configuration instability (old controls). No differences across conditions and/or time were observed in unstable cells. Blue indicates that the animal has visited the region but the cell has not fired, vivid colors indicate high neuronal activity (as shown in the color bar at the upper right corner). Number on top of each map represents peak firing rate (Hz) used to normalize the map colors. Red dots on the trajectory maps indicate location of action potentials. Waveform similarity indicates recording stability during the 24 hr period of training and testing. Context cells: Young controls (YC=23 cells), young SD (YSD=20 cells), old control (OC=8 cells), old SD (OSD=9 cells). Object cells: Young control (YC: 15 cells), young SD (YSD: 13 cells), old control (OC: 17 cells), old SD (OSD: 14 cells). Unstable cells:  Young control (YC=22 cells), young SD (YSD=17 cells), old control (OC=11 cells), old SD (OSD=18 cells). Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 3.   
+> **Figure 3.** Cell-type remapping across sessions during performance in the OPR task. A)
+Schematic indicating how similarity scores were computed. B-D) Average global remapping of
+context (B), object configuration (C), and unstable (D) cells across trials and corresponding
+examples of color-coded place cell rate maps, trajectory spike maps, and waveforms. Context
+cells are only unstable in the old control group, suggesting that poor performance in this group
+stems from inability to recall the context. Conversely, object configuration cells, which by definition
+remap when the objects are introduced, display intermediate levels of stability in young controls
+and old SD, the groups that show successful performance in the OPR task. Conversely, poor
+OPR performance is associated with either too much object configuration stability (young SD
+animals) or too much object configuration instability (old controls). No differences across
+conditions and/or time were observed in unstable cells. Blue indicates that the animal has visited
+the region but the cell has not fired, vivid colors indicate high neuronal activity (as shown in the
+color bar at the upper right corner). Number on top of each map represents peak firing rate (Hz)
+used to normalize the map colors. Red dots on the trajectory maps indicate location of action
+potentials. Waveform similarity indicates recording stability during the 24 hr period of training and
+testing. Context cells: Young controls (YC=23 cells), young SD (YSD=20 cells), old control (OC=8
+cells), old SD (OSD=9 cells). Object cells: Young control (YC: 15 cells), young SD (YSD: 13 cells),
+old control (OC: 17 cells), old SD (OSD: 14 cells). Unstable cells: Young control (YC=22 cells),
+young SD (YSD=17 cells), old control (OC=11 cells), old SD (OSD=18 cells). Asterisks (*) represent
+significance using alpha=0.05. Statistical details in Supplemental Statistical Table
+corresponding to Figure 3.   
 
 ***   
 
@@ -2687,120 +2563,44 @@ do.call(rbind, lapply(EffBb, as.data.table)))
     dev.off()
   
     <<ResCtrl3>>
-```
-
-## Fig 3C Average global remapping of object configuration cells {Design 2x2x(4xS)}   
-```{r F3C, }
-  NmBas="Fig3C ObjectCells"
-  NmFAlL<-paste0(PathDesign,NmBas)
-  if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
-  NmFAlL<-paste0(NmFAlL,"/")
-  ResGen<-NA
-  
-  rrt<-ExDataIS.3(nmF = paste0(PathDesign,"Cell_types (ANOVA_Overall_correlations).csv"),Vars = ,c(3,4,12,7:10),vIntP =c(4:7),lvlCh = list("HABxT1"="s1xs2", "T1xT2"="s2xs3","T2xT3"="s3xs4","T3xTest"="s4xs5"),TypCel = "Object")
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  ExtendDT<-rrt$ExtendDT
-  
-  # For  Simple Effects:
-  DatEfS<-list()
-  for(is in 1:4) {
-    DatEfS[[is]]<-ExData.2b(nmF = paste0(PathDesign,"Cell_types (ANOVA_Overall_correlations).csv"),Vars = c(3:4,(6+is)),TypCel = "Object")
-    names(DatEfS[[is]]$DT)[3]<-"DepV"
-  }
-
-  #Graphs
-  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Cell-Type Remapping Object Cells", "","Similarity Score"),ylmP =c(-0.5,1.2),hLin = T,lvIp = 4)
-  
-  levBp<-seq(0.7, 5, by=0.2)
-  Grp2<- Grp + geom_signif(annotation="#",
-              y_position=0.95, xmin=levBp[1+15]  , xmax=levBp[2+15], 
-              tip_length = c(0.02, 0.02),textsize=6) +
-    geom_signif(annotation="*",
-              y_position=0.9, xmin=levBp[2+15]  , xmax=levBp[4+15], 
-              tip_length = c(0.02, 0.02),textsize=6)+
-    geom_signif(annotation=c("","","*"),
-              y_position=c(-0.45,0.30,-0.5),
-              xmin=c(levBp[1],levBp[1+5], mean(levBp[c(1,4)])),
-              xmax=c(levBp[4],levBp[4+5], mean(levBp[c(1+5,4+5)])), 
-              tip_length = c(c(-0.02, -0.02),c(-0.02, -0.02),c(-0.02,-.52)),vjust=15.5,textsize=6)+
-    geom_signif(annotation=c("","","*"),
-              y_position=c(0.3,-0.45,-0.5),
-              xmin=c(levBp[1+10], levBp[1+15], mean(levBp[c(1+10,4+10)])),
-              xmax=c(levBp[4+10], levBp[4+15], mean(levBp[c(1+15,4+15)])), 
-              tip_length = c(c(-0.02, -0.02),c(-0.02, -0.02),c(-.52, -0.02)),vjust=15.5,textsize=6)
-  
-  #AOV
-  names(rrt$DT)[4:7]<-c("T1","T2","T3","T4")
-  ResGen<-AOVMx2(A=2,B=2,C=4,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 10000,nBMM2 = 1000,Prc = 2)
-  AlmacenGen2(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=2)
-  
-  # Other Graphs
-    GrpO<-Grph.3.Otros(ExtendDT,LblsP =c("Cell-Type Remapping Object Cells", "C","Similarity Score"))
-
-    ExtendDTCol<-copy(ExtendDT)
-    ExtendDTCol$Moment<-"All"
-    ExtendDTCol<-data.table(rbind(ExtendDT,ExtendDTCol))
-    Grp3<-Grph.3(DatP = ExtendDTCol,"OPR",LblsP =c("Cell-Type Remapping Object Cells", "C","Similarity Score"),ylmP =c(-0.5,1.2),hLin = T,lvIp = 5,wMain = T)
+```   
    
-    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
-      Grp3
-      GrpO
-    dev.off()
-    
-    <<ResCtrl3>>
-```
-## Fig 3D Average global remapping of unstable cells across trials {Design 2x2x(4xS)}   
-```{r F3D, }
-  NmBas="Fig3D UnstableCells"
-  NmFAlL<-paste0(PathDesign,NmBas)
-  if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
-  NmFAlL<-paste0(NmFAlL,"/")
-  ResGen<-NA  
+   
+## Fig 3C, 3D {Design 2x2x(4xS)}   
+```{r , eval=F}
 
-  rrt<-ExDataIS.3(nmF = paste0(PathDesign,"Cell_types (ANOVA_Overall_correlations).csv"),Vars = ,c(3,4,12,7:10),vIntP =c(4:7),lvlCh = list("HABxT1"="s1xs2", "T1xT2"="s2xs3","T2xT3"="s3xs4","T3xTest"="s4xs5"),TypCel = "Unstable")
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  ExtendDT<-rrt$ExtendDT
-  
-  # For Simple Effects:
-  DatEfS<-list()
-  for(is in 1:4) {
-    DatEfS[[is]]<-ExData.2b(nmF = paste0(PathDesign,"Cell_types (ANOVA_Overall_correlations).csv"),Vars = c(3:4,(6+is)),TypCel = "Unstable")
-    names(DatEfS[[is]]$DT)[3]<-"DepV"
-  }
-  
-  # Graphs
-  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Cell-Type Remapping Unstable Cells", "","Similarity Score"),ylmP =c(-0.5,1.2),hLin = T,lvIp = 4)
-  Grp2=Grp
-  
-  #AOV
-  names(rrt$DT)[4:7]<-c("T1","T2","T3","T4")
+# Command selection. Copy the rest of the lines of code from the chunk of the reference figure and in the same order.
+  # Fig 3C Average global remapping of object configuration cells {Design 2x2x(4xS)}
+  # As Fig.3B
+  rrt<-ExDataIS.3(nmF = paste0(PathDesign,"Cell_types (ANOVA_Overall_correlations).csv"),Vars = ,c(3,4,12,7:10),vIntP =c(4:7),lvlCh = list("HABxT1"="s1xs2", "T1xT2"="s2xs3","T2xT3"="s3xs4","T3xTest"="s4xs5"),TypCel = "Object")
+  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Cell-Type Remapping Object Cells", "","Similarity Score"),ylmP =c(-0.5,1.2),hLin = T,lvIp = 4)
   ResGen<-AOVMx2(A=2,B=2,C=4,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 10000,nBMM2 = 1000,Prc = 2)
-  AlmacenGen2(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=2)
-  
-  # Other Graphs
-    GrpO<-Grph.3.Otros(ExtendDT,LblsP =c("Cell-Type Remapping Unstable Cells", "D","Similarity Score"))
-    
-    ExtendDTCol<-copy(ExtendDT)
-    ExtendDTCol$Moment<-"All"
-    ExtendDTCol<-data.table(rbind(ExtendDT,ExtendDTCol))
-    Grp3<-Grph.3(DatP = ExtendDTCol,"OPR",LblsP =c("Cell-Type Remapping Unstable Cells", "D","Similarity Score"),ylmP =c(-0.5,1.2),hLin = T,lvIp = 5,wMain = T)
-    
-    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
-      Grp3
-      GrpO
-    dev.off()
 
-    <<ResCtrl3>>
-```
-      
-      
+  # Fig 3D Average global remapping of unstable cells across trials {Design 2x2x(4xS)}
+  # As Fig.3B
+  rrt<-ExDataIS.3(nmF = paste0(PathDesign,"Cell_types (ANOVA_Overall_correlations).csv"),Vars = ,c(3,4,12,7:10),vIntP =c(4:7),lvlCh = list("HABxT1"="s1xs2", "T1xT2"="s2xs3","T2xT3"="s3xs4","T3xTest"="s4xs5"),TypCel = "Unstable")
+  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Cell-Type Remapping Unstable Cells", "","Similarity Score"),ylmP =c(-0.5,1.2),hLin = T,lvIp = 4)
+  ResGen<-AOVMx2(A=2,B=2,C=4,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 10000,nBMM2 = 1000,Prc = 2)
+```   
+   
+   
 # **Figure 4. Place cell stability during unmoved object control task**      
 
 ***   
 
-> **Figure 4.** Place cell stability during unmoved object control task. A) Schematics of the task. B) Isolation distance showing absence of differences in spike cluster quality across conditions over time. C-E) Examples of context (C), object configuration (D), and unstable (D) rate maps, trajectory spike maps, and waveforms recorded from young and old control mice trained in the unmoved object control task. Context and object configuration cells recorded in young mice were more stable during the test than those recorded in old controls. Unstable cells did not show differences across groups and/or time. Blue indicates that the animal has visited the region but the cell has not fired, vivid colors indicate high neuronal activity (as shown in the color bar at the upper right corner). Number on top of each map represents peak firing rate (Hz) used to normalize the map colors. Red dots on the trajectory maps indicate location of action potentials. Waveform similarity indicates recording stability during the 24 hr period of training and testing. Young: 3 mice, 30 cells, old: 4 mice, 24 cells. Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 4.   
+> **Figure 4.** Place cell stability during unmoved object control task. A) Schematics of the task. B)
+Isolation distance showing absence of differences in spike cluster quality across conditions over
+time. C-E) Examples of context (C), object configuration (D), and unstable (D) rate maps,
+trajectory spike maps, and waveforms recorded from young and old control mice trained in the
+unmoved object control task. Context and object configuration cells recorded in young mice were
+more stable during the test than those recorded in old controls. Unstable cells did not show
+differences across groups and/or time. Blue indicates that the animal has visited the region but
+the cell has not fired, vivid colors indicate high neuronal activity (as shown in the color bar at the
+upper right corner). Number on top of each map represents peak firing rate (Hz) used to normalize
+the map colors. Red dots on the trajectory maps indicate location of action potentials. Waveform
+similarity indicates recording stability during the 24 hr period of training and testing. Young: 3
+mice, 30 cells, old: 4 mice, 24 cells. Asterisks (*) represent significance using alpha=0.05.
+Statistical details in Supplemental Statistical Table corresponding to Figure 4.   
 
 ***   
    
@@ -2812,7 +2612,7 @@ do.call(rbind, lapply(EffBb, as.data.table)))
   NmFAlL<-paste0(NmFAlL,"/")
   ResGen<-NA
     
-  rrt<-ExDataIS.3c(nmF = paste0(PathDesign,"ClusterQualityNonMovedControl.csv"),Vars = ,c(4,5,1,6:10),vIntP =c(4:8),lvlCh = list("HAB"="id_s1", "T1"="id_s2","T2"="id_s3","T3"="id_s4","Test"="id_s5"))
+  rrt<-ExDataIS.3c(nmF = paste0(PathDesign,"ClusterQualityNonMovedControlIsolation.csv"),Vars = ,c(4,5,1,6:10),vIntP =c(4:8),lvlCh = list("HAB"="id_s1", "T1"="id_s2","T2"="id_s3","T3"="id_s4","Test"="id_s5"))
   DatDT<-rrt$DT
   ArP<-rrt$Arp
   ExtendDT<-rrt$ExtendDT
@@ -2847,141 +2647,46 @@ do.call(rbind, lapply(EffBb, as.data.table)))
 ```   
    
    
-## Fig 4C Unmoved Controls Global Remapping Context Cells {Design 2x(4xS)}   
-```{r F4C, warning=F,message=F}
-  NmBas="Fig4C UnMovedContextCells"
-  NmFAlL<-paste0(PathDesign,NmBas)
-  if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
-  NmFAlL<-paste0(NmFAlL,"/")
-  ResGen<-NA
-
+## Fig 4C,4D, 4E {Design 2x(4xS)}   
+```{r F4C, eval=F}
+# Command selection. Copy the rest of the lines of code from the chunk of the reference figure and in the same order.
+  # Fig 4C Unmoved Controls Global Remapping Context Cells {Design 2x(4xS)}
+  # As Fig.4B
   rrt<-ExDataIS.3b(nmF = paste0(PathDesign,"NonMovedControls Final.csv"),Vars = ,c(3,4,12,7:10),vIntP =c(4:7),lvlCh = list("HABxT1"="s1xs2", "T1xT2"="s2xs3","T2xT3"="s3xs4","T3xTest"="s4xs5"),TypCel = "Context")
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  ExtendDT<-rrt$ExtendDT
-  
-  #Graphs
   Grp<- Grph.3b(DatP = ExtendDT,"OPR",LblsP =c("Unmoved Object Control Context Cells", "","Similarity Score"),ylmP =c(-0.5,1.2),hLin = T,lvIp = 4,GrpSel = c(1,3))
-  
-  levBp<-seq(0.82, 25, by=4/12)
-  Grp2<- Grp + 
-    geom_signif(annotation=c("*"),
-              y_position=c(1),
-              xmin=c(levBp[9+1]),
-              xmax=c(levBp[9+2]), 
-              tip_length = c(.02,.4),vjust=0.5,textsize=10) +
-      geom_signif(annotation=c("","","*"),
-              y_position=c(-.25,-.25,-.3),
-              xmin=c(levBp[6+1],levBp[9+1], mean(levBp[c(6+1,6+2)])),
-              xmax=c(levBp[6+2],levBp[9+2], mean(levBp[c(9+1,9+2)])), 
-              tip_length = c(c(-0.65,-0.4,-0.4,-0.02),c(-.04,-.04)),vjust=2,textsize=10)
-  
-  #AOV
   names(rrt$DT)[3:6]<-c("T1","T2","T3","T4")
   ResGen<-AOVMx2b(A=2,C=4,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 10000,nBMM2 = 1000,Prc = 2)
-  AlmacenGen(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=1)
+  <<ResCtrl5>> #Include here the chunk called ResCtrl3
   
-  # Other Graphs
-    ExtendDTCol<-copy(ExtendDT)
-    ExtendDTCol$Moment<-"All"
-    ExtendDTCol<-data.table(rbind(ExtendDT,ExtendDTCol))
-    
-    Grp3<- Grph.3b(DatP = ExtendDTCol,"OPR",LblsP =c("Unmoved Object Control Context Cells", "","Similarity Score"),ylmP =c(-0.5,1.2),hLin = T,lvIp = 5,GrpSel = c(1,3),wMain = T)
-    
-    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
-      Grp3
-    dev.off()
-  
-  <<ResCtrl5>>
-```   
-   
-   
-## Fig 4D Unmoved Controls Global Remapping Object configuration Cells {Design 2x(4xS)}   
-```{r F4D, }
-  NmBas="Fig4D UnMovedObjectCells"
-  NmFAlL<-paste0(PathDesign,NmBas)
-  if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
-  NmFAlL<-paste0(NmFAlL,"/")
-  ResGen<-NA
-
+  # Fig 4D Unmoved Controls Global Remapping Object configuration Cells {Design 2x(4xS)}
+  # As Fig.4B
   rrt<-ExDataIS.3b(nmF = paste0(PathDesign,"NonMovedControls Final.csv"),Vars = ,c(3,4,12,7:10),vIntP =c(4:7),lvlCh = list("HABxT1"="s1xs2", "T1xT2"="s2xs3","T2xT3"="s3xs4","T3xTest"="s4xs5"),TypCel = "Object")
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  ExtendDT<-rrt$ExtendDT
-  
   Grp<- Grph.3b(DatP = ExtendDT,"OPR",LblsP =c("Object Exploration", "","Similarity Score"),ylmP =c(-0.5,1.2),hLin = T,lvIp = 4,GrpSel = c(1,3))
-  
-  levBp<-seq(0.82, 25, by=4/12)
-  Grp2<- Grp + geom_signif(annotation=c("*"),
-              y_position=c(1),
-              xmin=c(levBp[9+1]),
-              xmax=c(levBp[9+2]), 
-              tip_length = c(.02,.02),vjust=0.5,textsize=6)
-   
-  #AOV
   names(rrt$DT)[3:6]<-c("T1","T2","T3","T4")
   ResGen<-AOVMx2b(A=2,C=4,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 10000,nBMM2 = 1000,Prc = 2)
-  
-  AlmacenGen(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=1)
-  
-  # Other Graphs
-    ExtendDTCol<-copy(ExtendDT)
-    ExtendDTCol$Moment<-"All"
-    ExtendDTCol<-data.table(rbind(ExtendDT,ExtendDTCol))
+  <<ResCtrl5>> #Include here the chunk called ResCtrl3
     
-    Grp3<- Grph.3b(DatP = ExtendDTCol,"OPR",LblsP =c("Unmoved Object Control Context Cells", "","Similarity Score"),ylmP =c(-0.5,1.2),hLin = T,lvIp = 5,GrpSel = c(1,3),wMain = T)
-    
-
-    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
-      Grp3
-    dev.off()
-  
-    <<ResCtrl5>>
-```
-
-## Fig 4E Unmoved Controls Global Remapping Unstable Cells {Design 2x(4xS)}   
-```{r F4E, }
-  NmBas="Fig4E UnMovedUnstableCells"
-  NmFAlL<-paste0(PathDesign,NmBas)
-  if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
-  NmFAlL<-paste0(NmFAlL,"/")
-  ResGen<-NA
-
+  # Fig 4E Unmoved Controls Global Remapping Unstable Cells {Design 2x(4xS)}
+  # As Fig.4B
   rrt<-ExDataIS.3b(nmF = paste0(PathDesign,"NonMovedControls Final.csv"),Vars = ,c(3,4,12,7:10),vIntP =c(4:7),lvlCh = list("HABxT1"="s1xs2", "T1xT2"="s2xs3","T2xT3"="s3xs4","T3xTest"="s4xs5"),TypCel = "Unstable")
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  ExtendDT<-rrt$ExtendDT
-  
   Grp<- Grph.3b(DatP = ExtendDT,"OPR",LblsP =c("Object Exploration", "","Similarity Score"),ylmP =c(-0.5,1.2),hLin = T,lvIp = 4,GrpSel = c(1,3))
-  Grp2=Grp
-   
-   #AOV
-  # DatEfS Absent because there are are not A*B factorial design
   names(rrt$DT)[3:6]<-c("T1","T2","T3","T4")
   ResGen<-AOVMx2b(A=2,C=4,DatPas = rrt,nBMM1 = 10000,nBMM2 = 1000,Prc = 2)
-  
-  AlmacenGen(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=1)
-  
-  # Other Graphs
-    ExtendDTCol<-copy(ExtendDT)
-    ExtendDTCol$Moment<-"All"
-    ExtendDTCol<-data.table(rbind(ExtendDT,ExtendDTCol))
-    
-    Grp3<- Grph.3b(DatP = ExtendDTCol,"OPR",LblsP =c("Unmoved Object Control Context Cells", "","Similarity Score"),ylmP =c(-0.5,1.2),hLin = T,lvIp = 5,GrpSel = c(1,3),wMain = T)
-    
-    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
-      Grp3
-    dev.off()
-  
-    <<ResCtrl5>>
+  <<ResCtrl5>> #Include here the chunk called ResCtrl3
 ```   
    
-
+   
 # **Figure 5. Sleep patterns during post-training and recovery sleep in young and old mice.**     
    
 ***   
 
-> **Figure 5.** Sleep patterns during post-training and recovery sleep in young and old mice. A-C) Percentage of total time (A), number of bouts (B), and bout length (C) in Wake, NREM, and REM during post-training sleep in young and old control mice. D-F) Percentage of total time (D), number of bouts (E), and bout length (F) in Wake, NREM and REM during recovery sleep in control and SD groups. Young control (n=11), young SD (n=11), old control (n=8), old SD (n=10). Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 5.   
+> **Figure 5.** Sleep patterns during post-training and recovery sleep in young and old mice. A-C)
+Percentage of total time (A), number of bouts (B), and bout length (C) in Wake, NREM, and REM
+during post-training sleep in young and old control mice. D-F) Percentage of total time (D), number
+of bouts (E), and bout length (F) in Wake, NREM and REM during recovery sleep in control and
+SD groups. Young control (n=11), young SD (n=11), old control (n=8), old SD (n=10). Asterisks
+(*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table
+corresponding to Figure 5.   
 
 ***   
 
@@ -3167,7 +2872,7 @@ do.call(rbind, lapply(EffBb, as.data.table)))
  E) Number of bouts in Wake, NREM and REM during recovery sleep 
  F) bout length in Wake, NREM and REM during recovery sleep   
  
-##     Fig 5D,E,F Sleep Recovery {2x2 MANOVA}   
+##    Fig 5D,E,F Sleep Recovery {2x2 MANOVA}   
 ```{r F5DEF, fig.keep='all'}
   NmBas="Fig6D_E_F Recovery"
   NmFich<-paste0(PathDesign,"RecoverSleep.csv");
@@ -3346,12 +3051,19 @@ do.call(rbind, lapply(EffBb, as.data.table)))
   Kbl3(rbResRb23DetallExt, "Extense Simple Effects Age-Sleep. Design 2x2")
 ```   
    
-
+***   
+   
 # **Figure 6. Average power spectra and relative delta (RDP) and theta (RTP).**   
    
 ***   
    
-> **Figure 6.** Average power spectra and relative delta (RDP) and theta (RTP) power during post-learning and recovery. A-D) Average NREM (A) and REM (B) power spectra and RDP in NREM (C) and RTP in REM during post-learning. E-H) Average NREM (E) and REM (F) power spectra and RDP in NREM (G) and RTP in REM (H) during recovery. RDP: 0.25-4 Hz, RTP: 4-10 Hz. Young control (n=11), young SD (n=11), old control (n=8), old SD (n=10). Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 6.   
+> **Figure 6.** AAverage power spectra and relative delta (RDP) and theta (RTP) power during postlearning
+and recovery. A-D) Average NREM (A) and REM (B) power spectra and RDP in NREM
+(C) and RTP in REM during post-learning. E-H) Average NREM (E) and REM (F) power spectra
+and RDP in NREM (G) and RTP in REM (H) during recovery. RDP: 0.25-4 Hz, RTP: 4-10 Hz,.
+Young control (n=11), young SD (n=11), old control (n=8), old SD (n=10). Asterisks (*) represent
+significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding
+to Figure 6.   
 
 ***   
    
@@ -3491,12 +3203,33 @@ NmBas="Fig6H RelThetaPowerREM Recover"
   dev.off()
 ```   
    
-
+***   
+   
+   
 # **Figure 7. Spindle characteristics.**   
 
 ***   
    
-> **Figure 7.** Spindle characteristics. A) Representation of the automated spindle detection method. Top panel shows the cubed root-mean squared (RMS) of the filtered EEG computed over 750 ms windows. The spindle detection method used a two-threshold approach. These values are derived from the mean cubed RMS transform value of all the NREM traces and included both a lower threshold and upper threshold. The second panel shows the band-pass filtered EEG, followed by the unfiltered EEG signal, and the results of the spindle detection. The bottom panel shows the corresponding EMG signal. Red marks the regions of the signal where spindles are detected, 1 indicates the presence and 0 the absence of spindles, respectively. B-D) Spindle counts (B), duration (C), and frequency (D) during the post-learning sleep period. B) There were no differences between the groups in total average number of spindles, but segment analysis revealed that old control animals displayed less spindles than young control animals during the first hour post-learning. C-D) There were no differences in spindles duration (D) or frequency (D) during post-learning. E-G) Spindle numbers (E), duration (F), and frequency (G) during recovery. G) Old SD animals displayed more average total number of spindles than old controls during the 5 hr recovery sleep period. The 1 hr segment analysis indicated that the groups displayed more spindles during the last segment than the preceding one. F) There were no differences in spindles duration. G) Young SD mice displayed higher spindle frequency than old SD animals. Young control (n=11), young SD (n=11), old control (n=8), old SD (n=10). Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 7.   
+> **Figure 7.** Spindle characteristics. A) Representation of the automated spindle detection method.
+Top panel shows the cubed root-mean squared (RMS) of the filtered EEG computed over 750 ms
+windows. The spindle detection method used a two-threshold approach. These values are derived
+from the mean cubed RMS transform value of all the NREM traces and included both a lower
+threshold and upper threshold. The second panel shows the band-pass filtered EEG, followed by
+the unfiltered EEG signal, and the results of the spindle detection. The bottom panel shows the
+corresponding EMG signal. Red marks the regions of the signal where spindles are detected, 1
+indicates the presence and 0 the absence of spindles, respectively. B-D) Spindle counts (B),
+duration (C), and frequency (D) during the post-learning sleep period. B) There were no
+differences between the groups in total average number of spindles, but segment analysis
+revealed that old control animals displayed fewer spindles than young control animals during the
+first hour post-learning. C-D) There were no differences in spindles duration (D) or frequency (D)
+during post-learning. E-G) Spindle numbers (E), duration (F), and frequency (G) during recovery.
+G) Old SD animals displayed more average total number of spindles than old controls during the
+5 hr recovery sleep period. The 1 hr segment analysis indicated that the groups displayed more
+spindles during the last segment than the preceding one. F) There were no differences in spindle
+duration. G) Young SD mice displayed higher spindle frequency than old SD animals. Young
+control (n=11), young SD (n=11), old control (n=8), old SD (n=10). Asterisks (*) represent
+significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding
+to Figure 7.   
    
 ***   
    
@@ -3570,138 +3303,32 @@ NmBas="Fig6H RelThetaPowerREM Recover"
 ```   
    
    
-## Fig 7C Duration during the post-learning sleep period {Design 2x((5+1)xS)   
-```{r F7C, }
-  NmBas="Fig7C AvgSpindDurat PostL"
-  NmFich<-paste0(PathDesign,"DeltaTetaSpindlePostL.csv");
-  DatDTFull <- data.table(read.table(NmFich, header=TRUE, sep=";", na.strings="NA", dec=",",strip.white=TRUE))
-  NmFAlL<-paste0(PathDesign,NmBas)
-  if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
-  NmFAlL<-paste0(NmFAlL,"/")
-  ResGen<-NA;rbResRbGl<-list()
+## Fig 7C,7D {Design 2x((5+1)xS)   
+```{r , eval=F}
 
- # Graphs Previously
+# Command selection. Copy the rest of the lines of code from the chunk of the reference figure and in the same order.
+  # Fig 7C Duration during the post-learning sleep period {Design 2x((5+1)xS)
+  # As Fig.7B
   rrt<-ExDataIS.3c(nmF = NmFich,Vars = ,c(4,5,7,23:28),vIntP =c(4:9),lvlCh = list("Hr 1"="Avg_SpindleDuration_NREM_1", "Hr 2"="Avg_SpindleDuration_NREM_2","Hr 3"="Avg_SpindleDuration_NREM_3","Hr 4"="Avg_SpindleDuration_NREM_4","Hr 5"="Avg_SpindleDuration_NREM_5","Total"="Avg_SpindleDuration_NREM_TT"))
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  ExtendDT<-rrt$ExtendDT
   Grp<- Grph.3b(DatP = ExtendDT,"OPR",LblsP =c("Spindle Characteristics", "","Spindle Duration (s)"),ylmP =c(0,3),hLin = F,lvIp = 6,GrpSel = c(1,3))
-  Grp2=Grp
-  
   #AOV 1 Global
   DatDTG<-DatDTFull[,c(4,7,28)];
-  DatDTG$Age<-factor(DatDTG$Age)
-  DatDTG$Age<-relevel(DatDTG$Age,"Young")
-  setkey(DatDTG,Age)
-
-  ArPGlobal<-c(lapply(1:2, function (x) DatDTG[.(levels(DatDTG$Age)[x]),3,with=F][[1]]),recursive = F)
-  ResAOV1<-AOVSingle(ArPGlobal,2)
-  rbResRbGl$AOV<-do.call(cbind, lapply(ResAOV1, as.data.table))
-	write.csv2(rbResRbGl$AOV,paste0(NmFAlL, NmBas,"GlobalOmnContr.csv"))
-  
   #AOV 2 For Time Details
   rrt2<-ExDataIS.3c(nmF = NmFich,Vars = ,c(4,5,7,23:27),vIntP =c(4:8),lvlCh = list("Hr 1"="Avg_SpindleDuration_NREM_1", "Hr 2"="Avg_SpindleDuration_NREM_2","Hr 3"="Avg_SpindleDuration_NREM_3","Hr 4"="Avg_SpindleDuration_NREM_4","Hr 5"="Avg_SpindleDuration_NREM_5"))
-
-  names(rrt2$DT)[3:7]<-c("T1","T2","T3","T4","T5")
   ResGen<-AOVMx2b(A=2,C=5,DatPas = rrt2,nBMM1 = 10000,nBMM2 = 1000,Prc = 2)
-  AlmacenGen(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=1)
-
-  # Other Graphs for Time details
-    ExtendDT2<-rrt2$ExtendDT
-    ExtendDTCol<-copy(ExtendDT2)
-    ExtendDTCol$Moment<-"All"
-    ExtendDTCol<-data.table(rbind(ExtendDT2,ExtendDTCol))
-    
-    Grp3<- Grph.3b(DatP = ExtendDTCol,"OPR",LblsP =c("Spindle Characteristics", "","Spindle Duration (s)"),ylmP =c(0,3),hLin = F,lvIp = 6,GrpSel = c(1,3),wMain = T)
-    
-    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
-      Grp3
-    dev.off()
-    
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    plot(Grp3)
-    
-    #AOV 1 Global
-    rbResRbGl
-    Kbl3(rbResRbGl, "Global Omnibus AOV. Design 2")
-    
-    #AOV 2 For Time Details
-    ResGen
-    Kbl3(ResGen[[1]], "Omnibus AOV. Design 2x(5xS)")
-    Kbl3(ResGen[[2]], "Simple Effects Age-Time. Design 2x(5xS)")
-    Kbl3(ResGen[[3]], "Main Effects Time. Design 2x(5xS)")
   
-```   
-   
-   
-## Fig 7D Frequency during the post-learning sleep period {Design 2x((5+1)xS)   
-```{r F7D, }
-  NmBas="Fig7D SpindFreq PostL"
-  NmFich<-paste0(PathDesign,"DeltaTetaSpindlePostL.csv");
-  DatDTFull <- data.table(read.table(NmFich, header=TRUE, sep=";", na.strings="NA", dec=",",strip.white=TRUE))
-  NmFAlL<-paste0(PathDesign,NmBas)
-  if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
-  NmFAlL<-paste0(NmFAlL,"/")
-  ResGen<-NA;rbResRbGl<-list()
-  
-# Graphs Previously
+  # Fig 7D Frequency during the post-learning sleep period {Design 2x((5+1)xS)
+  # As Fig.7B
   rrt<-ExDataIS.3c(nmF = NmFich,Vars = ,c(4,5,7,29:34),vIntP =c(4:9),lvlCh = list("Hr 1"="Avg_SpindleHz_NREM_1", "Hr 2"="Avg_SpindleHz_NREM_2","Hr 3"="Avg_SpindleHz_NREM_3","Hr 4"="Avg_SpindleHz_NREM_4","Hr 5"="Avg_SpindleHz_NREM_5","Total"="Avg_SpindleHz_NREM_TT"))
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  ExtendDT<-rrt$ExtendDT
   Grp<- Grph.3b(DatP = ExtendDT,"OPR",LblsP =c("Spindle Characteristics", "","Spindle Frequency (Hz)"),ylmP =c(10,12),hLin = F,lvIp = 6,GrpSel = c(1,3))
-  
-  Grp2=Grp
-  
   #AOV 1 Global
   DatDTG<-DatDTFull[,c(4,7,34)];
-  DatDTG$Age<-factor(DatDTG$Age)
-  DatDTG$Age<-relevel(DatDTG$Age,"Young")
-  setkey(DatDTG,Age)
-
-  ArPGlobal<-c(lapply(1:2, function (x) DatDTG[.(levels(DatDTG$Age)[x]),3,with=F][[1]]),recursive = F)
-  ResAOV1<-AOVSingle(ArPGlobal,2)
-  rbResRbGl$AOV<-do.call(cbind, lapply(ResAOV1, as.data.table))
-	write.csv2(rbResRbGl$AOV,paste0(NmFAlL, NmBas,"GlobalOmnContr.csv"))
-  
   #AOV 2 For Time Details
   rrt2<-ExDataIS.3c(nmF = NmFich,Vars = ,c(4,5,7,29:33),vIntP =c(4:8),lvlCh = list("Hr 1"="Avg_SpindleHz_NREM_1", "Hr 2"="Avg_SpindleHz_NREM_2","Hr 3"="Avg_SpindleHz_NREM_3","Hr 4"="Avg_SpindleHz_NREM_4","Hr 5"="Avg_SpindleHz_NREM_5"))
-
-  names(rrt2$DT)[3:7]<-c("T1","T2","T3","T4","T5")
   ResGen<-AOVMx2b(A=2,C=5,DatPas = rrt2,nBMM1 = 10000,nBMM2 = 1000,Prc = 2)
-  AlmacenGen(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=1)
-  
-  # Other Graphs for Time details
-    ExtendDT2<-rrt2$ExtendDT
-    ExtendDTCol<-copy(ExtendDT2)
-    ExtendDTCol$Moment<-"All"
-    ExtendDTCol<-data.table(rbind(ExtendDT2,ExtendDTCol))
-    
-    Grp3<- Grph.3b(DatP = ExtendDTCol,"OPR",LblsP =c("Spindle Characteristics", "","Spindle Frequency (Hz)"),ylmP =c(10,12),hLin = F,lvIp = 6,GrpSel = c(1,3),wMain = T)
-    
-    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
-      Grp3
-    dev.off()
-    
-    #Results
-    plot(Grp)
-    plot(Grp2)
-    plot(Grp3)
-    
-    #AOV 1 Global
-    rbResRbGl
-    Kbl3(rbResRbGl, "Global Omnibus AOV. Design 2")
-    
-    #AOV 2 For Time Details
-    ResGen
-    Kbl3(ResGen[[1]], "Omnibus AOV. Design 2x(5xS)")
-    Kbl3(ResGen[[2]], "Simple Effects Age-Time. Design 2x(5xS)")
-    Kbl3(ResGen[[3]], "Main Effects Time Design. 2x(5xS)")
 ```   
    
-
+   
 ## Fig 7E Spindle numbers during recovery {Design 2x2x((5+1)xS)   
 ```{r F7E, }
   NmBas="Fig7E SpindCount Recover"
@@ -3785,157 +3412,45 @@ NmBas="Fig6H RelThetaPowerREM Recover"
 ```   
    
    
-## Fig 7F Duration during recovery {Design 2x2x((5+1)xS)   
-```{r F7F, }
-  NmBas="Fig7F AvgSpindDurat Recover"
-  NmFich<-paste0(PathDesign,"DeltaTetaSpindleRecover.csv");
-  NmFAlL<-paste0(PathDesign,NmBas)
-  if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
-  NmFAlL<-paste0(NmFAlL,"/")
-  ResGen<-NA;ResGen1<-NA;
+## Fig 7F, 7G {Design 2x2x((5+1)xS)   
+```{r , eval=F}
 
-  # Graphs Previously
+# Command selection. Copy the rest of the lines of code from the chunk of the reference figure and in the same order.
+  # Fig 7F Duration during recovery {Design 2x2x((5+1)xS)
+  # As Fig. 7E
   rrt<-ExDataIS.2(nmF = NmFich,Vars = ,c(4,5,7,15:20),vIntP =c(4:9),lvlCh = list("Hr 1"="Avg_SpindleDuration_NREM_1", "Hr 2"="Avg_SpindleDuration_NREM_2","Hr 3"="Avg_SpindleDuration_NREM_3","Hr 4"="Avg_SpindleDuration_NREM_4","Hr 5"="Avg_SpindleDuration_NREM_5","Total"="Avg_SpindleDuration_NREM_TT"))
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  ExtendDT<-rrt$ExtendDT
-  
   Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Spindle Characteristics", "","Spindle Duration (s)"),ylmP =c(0,3),hLin = F,lvIp = 6)
-  Grp2=Grp
-  
   #AOV 1 Global
   rrt<-ExData.2(nmF =NmFich,Vars = c(4,5,20))
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  
-  names(rrt$DT)[3]<-"DepV"
-  ResGen1<-AOVBwF(2,2,DatPas = rrt,nBMM = 10000)
-  AlmacenGen(Grp,Grp2,ResGen1,PathDesign,paste0(NmBas,"_Total"),Typ=1)
-  
   #AOV 2 For Time Details
   rrt2<-ExDataIS.2(nmF = NmFich,Vars = c(4,5,7,15:19),vIntP =c(4:8),lvlCh = list("Hr 1"="Avg_SpindleDuration_NREM_1", "Hr 2"="Avg_SpindleDuration_NREM_2","Hr 3"="Avg_SpindleDuration_NREM_3","Hr 4"="Avg_SpindleDuration_NREM_4","Hr 5"="Avg_SpindleDuration_NREM_5"))
-  DatDT<-rrt2$DT
-  ArP<-rrt2$Arp
-  ExtendDT<-rrt2$ExtendDT
-  
-  # Simple Effects:
-  DatEfS<-list()
-  for(is in 1:5) {
-    DatEfS[[is]]<-ExData.2(nmF = NmFich,Vars = c(4:5,(8+is)))
-    names(DatEfS[[is]]$DT)[3]<-"DepV"
-  }
-  
-  names(rrt2$DT)[4:8]<-c("T1","T2","T3","T4","T5")
   ResGen<-AOVMx2.5(A=2,B=2,C=5,DatPas = rrt2,DatEfSp = DatEfS,nBMM1 = 10000,nBMM2 = 1000,Prc = 2)
-  AlmacenGen2(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = paste0(NmBas,"_TimeDetail"),Typ=2)
   
-  # Other Graphs for Time details
-    ExtendDT2<-rrt2$ExtendDT
-    ExtendDTCol<-copy(ExtendDT2)
-    ExtendDTCol$Moment<-"All"
-    ExtendDTCol<-data.table(rbind(ExtendDT2,ExtendDTCol))
-    
-    Grp3<- Grph.3(DatP = ExtendDTCol,"OPR",LblsP =c("Spindle Characteristics", "","Spindle Duration (s)"),ylmP =c(0,3),hLin = F,lvIp = 6,wMain = T)
-    
-    GrpO<-Grph.3.Otros(ExtendDT,LblsP =c("Spindle Characteristics", "","Spindle Duration (s)"))
-    
-    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
-      Grp3
-      GrpO
-    dev.off()
-    
-    #Results
-    #AOV 1 Global
-    ResGen1
-    Kbl3(ResGen1[[1]], "Omnibus AOV. Design 2x2")
-    Kbl3(ResGen1[[2]], "Simple Effects Age-Sleep. Design 2x2")
-    Kbl3(ResGen1[[3]], "Extense Simple Effects Age-Sleep. Design 2x2")
-    
-    #AOV 2 For Time Details
-    <<ResCtrl4>>
-```   
-   
-   
-## Fig 7G Frequency during recovery {Design 2x2x((5+1)xS)   
-```{r F7G, }
-  NmBas="Fig7G SpindFreq Recover"
-  NmFich<-paste0(PathDesign,"DeltaTetaSpindleRecover.csv");
-  NmFAlL<-paste0(PathDesign,NmBas)
-  if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
-  NmFAlL<-paste0(NmFAlL,"/")
-  ResGen<-NA;ResGen1<-NA;
-  
-  # Graphs Previously
+  # Fig 7G Frequency during recovery {Design 2x2x((5+1)xS)
+  # As Fig. 7E
   rrt<-ExDataIS.2(nmF = NmFich,Vars = ,c(4,5,7,21:26),vIntP =c(4:9),lvlCh = list("Hr 1"="Avg_SpindleHz_NREM_1", "Hr 2"="Avg_SpindleHz_NREM_2","Hr 3"="Avg_SpindleHz_NREM_3","Hr 4"="Avg_SpindleHz_NREM_4","Hr 5"="Avg_SpindleHz_NREM_5","Total"="Avg_SpindleHz_NREM_TT"))
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  ExtendDT<-rrt$ExtendDT
-  
   Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Spindle Characteristics", "","Spindle Frequency (Hz)"),ylmP =c(10,12),hLin = F,lvIp = 6)
-  
-  levBp<-seq(0.7, 25, by=0.2)
-  Grp2<- Grp + geom_signif(annotation="*",
-              y_position=11.5, xmin=levBp[2+25]  , xmax=levBp[4+25], 
-              tip_length = c(0.02, 0.02),vjust=0.5,textsize=10)
-  
   #AOV 1 Global
   rrt<-ExData.2(nmF = NmFich,Vars = c(4,5,26))
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  
-  names(rrt$DT)[3]<-"DepV"
-  ResGen1<-AOVBwF(2,2,DatPas = rrt,nBMM = 10000)
-  AlmacenGen(Grp,Grp2,ResGen1,PathDesign,paste0(NmBas,"_Total"),Typ=1)
-  
   #AOV 2 For Time Details
   rrt2<-ExDataIS.2(nmF = NmFich,Vars = c(4,5,7,21:25),vIntP =c(4:8),lvlCh = list("Hr 1"="Avg_SpindleHz_NREM_1", "Hr 2"="Avg_SpindleHz_NREM_2","Hr 3"="Avg_SpindleHz_NREM_3","Hr 4"="Avg_SpindleHz_NREM_4","Hr 5"="Avg_SpindleHz_NREM_5"))
-  DatDT<-rrt2$DT
-  ArP<-rrt2$Arp
-  ExtendDT<-rrt2$ExtendDT
-  
-  # Simple Effects:
-  DatEfS<-list()
-  for(is in 1:5) {
-    DatEfS[[is]]<-ExData.2(nmF = NmFich,Vars = c(4:5,(8+is)))
-    names(DatEfS[[is]]$DT)[3]<-"DepV"
-  }
-  
-  names(rrt2$DT)[4:8]<-c("T1","T2","T3","T4","T5")
   ResGen<-AOVMx2.5(A=2,B=2,C=5,DatPas = rrt2,DatEfSp = DatEfS,nBMM1 = 10000,nBMM2 = 1000,Prc = 2)
-  AlmacenGen2(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = paste0(NmBas,"_TimeDetail"),Typ=2)
   
-  # Other Graphs for Time details
-    ExtendDT2<-rrt2$ExtendDT
-    ExtendDTCol<-copy(ExtendDT2)
-    ExtendDTCol$Moment<-"All"
-    ExtendDTCol<-data.table(rbind(ExtendDT2,ExtendDTCol))
-    
-    Grp3<- Grph.3(DatP = ExtendDTCol,"OPR",LblsP =c("Spindle Characteristics", "","Spindle Frequency (Hz)"),ylmP =c(10,12),hLin = F,lvIp = 6,wMain = T)
-    
-    GrpO<-Grph.3.Otros(ExtendDT,LblsP =c("Spindle Characteristics", "","Spindle Frequency (Hz)"))
-   
-    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
-      Grp3
-      GrpO
-    dev.off()
-    
-    #Results
-    #AOV 1 Global
-    ResGen1
-    Kbl3(ResGen1[[1]], "Omnibus AOV. Design 2x2")
-    Kbl3(ResGen1[[2]], "Simple Effects Age-Sleep. Design 2x2")
-    Kbl3(ResGen1[[3]], "Extense Simple Effects Age-Sleep. Design 2x2")
-    
-    #AOV 2 For Time Details
-    <<ResCtrl4>>
 ```   
    
-
+   
 # **Figure 8. Spindle counts during NREM/REM sigma transitions correlate with memory performance.**   
 
 ***   
 
-> **Figure 8.** Spindle counts during NREM/REM sigma transitions correlate with memory performance. A-F) Spectrograms showing NREM/REM sigma transitions and associated average spindle counts during the same transitions for controls during post-learning (A-B) and experimental and controls groups during recovery (C-F). G-H) Sum of spindle counts during the NREM/REM sigma transitions during post-learning (G) and recovery (H). I) Correlations between OPR memory performance and spindle counts during NREM/REM sigma transitions. Young control (n=11), young SD (n=11), old control (n=8), old SD (n=10). Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 8.   
+> **Figure 8.** Total spindle counts during NREM/REM sigma transitions correlate with memory
+performance. A-F) Plots showing NREM/REM sigma transitions and associated average spindle
+counts during the same transitions for controls during post-learning (A-B) and experimental and
+controls groups during recovery (C-F). G-H) Total spindle counts during the NREM/REM sigma
+transitions during post-learning (G) and recovery (H).I) Correlations between OPR memory
+performance and spindle counts during NREM/REM sigma transitions. Young control (n=11),
+young SD (n=11), old control (n=8), old SD (n=10). Asterisks (*) represent significance using
+alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Figure 8.   
 
 ***   
    
@@ -4191,18 +3706,20 @@ NmBas="Fig6H RelThetaPowerREM Recover"
   plot(bpp)
 ```   
    
-
+***   
+   
+   
 # **Supplemental Figure 1. Electrode placement and place cell parameters recorded.**   
 
 ***   
 
-> **Supplemental Figure 1.** Schematic of electrode placement and place cell parameters recorded during OPR performance. A) Schematic of electrode placements (red dots) and microphotograph showing sample lesion marking electrode placement in CA1. B-D) Mean (B), peak (C), and out of field (D) firing rate for all groups across trials. There were no differences in mean or peak firing rate between the groups throughout training (p>0.05). However, there were increases in firing rate that persisted during training (T1 to T3) when the objects were introduced across all groups [MFR: Fw(4)=1.14, p<0.007; PFR: Fw(4)=1.11, p<0.02 . Analysis of simple effects indicated that all groups displayed higher mean and peak firing rate during the first object trial and test trials (MFR: Hab xT1: Zw=1.73, p<0.04; T3 x Test: Zw=3.16, p<0.04; PFR: Hab xT1: Zw=2.08, p<0.02; T3 x Test: Zw=0.96, p<0.05]. No differences were observed in out-of- field firing rate. E-G) There were no differences during training or testing in other place cell parameters, including number of fields (E), field size (F), and spatial information content (G, p>0.05). Hab: habituation, T1-T3: training trials. Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Supplemental Figure 1.   
+> **Supplemental Figure 1.** Schematic of electrode placement, L-Ratio, and place cell parameters recorded during OPR performance. A) Schematic of electrode placements (red dots) and microphotograph showing sample lesion marking electrode placement in CA1. B) L-ratio for all groups showing no significant differences across trials. C-E) Mean (C), peak (D), and out of field (E) firing rate for all groups across trials. There were no differences in mean or peak firing rate between the groups throughout training (p>0.05). However, there were increases in firing rate that persisted during training (T1 to T3) when the objects were introduced across all groups [MFR: Fw(4)=1.14, p<0.007; PFR: Fw(4)=1.11, p<0.02 . Analysis of simple effects indicated that all groups displayed higher mean and peak firing rate during the first object trial and test trials (MFR: Hab xT1: Zw=1.73, p<0.04; T3 x Test: Zw=3.16, p<0.04; PFR: Hab xT1: Zw=2.08, p<0.02; T3 x Test: Zw=0.96, p<0.05]. No differences were observed in out-of- field firing rate. F-H) There were no differences during training or testing in other place cell parameters, including number of fields (F), field size (G), and spatial information content (H, p>0.05). Hab: habituation, T1-T3: training trials. YC: young control, YSD: young sleep deprived, OC: old control, OSD: old sleep deprived. Asterisks (*) represent significance using alpha=0.05. Statistical details in Supplemental Statistical Table corresponding to Supplemental Figure 1.   
 
 ***   
    
-## Fig S1B Mean firing rate {Design 2x2x(5xS)}
-```{r S1B, }
-  NmBas="FigS1B MeanFiringRate"
+## Fig S1C Mean firing rate {Design 2x2x(5xS)}
+```{r S1C, }
+  NmBas="FigS1C MeanFiringRate"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
   NmFAlL<-paste0(NmFAlL,"/")
@@ -4259,309 +3776,71 @@ NmBas="Fig6H RelThetaPowerREM Recover"
     <<ResCtrl4>>
 ```
 
-## Fig S1C Peak firing rate {Design 2x2x(5xS)}
-```{r S1C, }
-  NmBas="FigS1C PeakFiringRate"
-  NmFAlL<-paste0(PathDesign,NmBas)
-  if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
-  NmFAlL<-paste0(NmFAlL,"/")
-  ResGen<-NA
-  
-  rrt<-ExDataIS.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = c(1,5,6,12:16),vIntP =c(4:8),lvlCh = list("HAB"="pfr_s1", "T1"="pfr_s2","T2"="pfr_s3","T3"="pfr_s4","Test"="pfr_s5"))
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  ExtendDT<-rrt$ExtendDT
-  
-  # Simple Effects:
-  DatEfS<-list()
-  for(is in 1:5) {
-    DatEfS[[is]]<-ExData.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = c(5:6,(6+is)))
-    names(DatEfS[[is]]$DT)[3]<-"DepV"
-  }
-  
-  #Graphs
-  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Object Exploration", "","Peak FR (Hz)"),ylmP =c(0,10),hLin = F,lvIp=5)
- 
-  levBp<-seq(0.7, 6, by=0.2)
-  Grp2<- Grp + 
-    geom_signif(annotation=c("","","*"),
-              y_position=c(7.5,7.5,8),
-              xmin=c(levBp[1],levBp[1+5], mean(levBp[c(1,4)])),
-              xmax=c(levBp[4],levBp[4+5], mean(levBp[c(1+5,4+5)])), 
-              tip_length = c(0.02, 0.02),textsize=6)+
-    geom_signif(annotation=c("","","*"),
-              y_position=c(7.5,7.5,8),
-              xmin=c(levBp[1+15],levBp[1+20], mean(levBp[c(1+15,4+15)])),
-              xmax=c(levBp[4+15],levBp[4+20], mean(levBp[c(1+20,4+20)])), 
-              tip_length = c(0.02, 0.02),textsize=6)
-  
-    #AOV
-    names(rrt$DT)[4:8]<-c("T1","T2","T3","T4","T5")
-    ResGen<-AOVMx2.5(A=2,B=2,C=5,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 1000,nBMM2 = 1000,Prc = 2)
-    AlmacenGen2(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=2)
-  
-  # Other Graphs
-    GrpO<-Grph.3.Otros(ExtendDT,LblsP =c("Object Exploration", "C","Peak FR (Hz)"))
-    
-    ExtendDTCol<-copy(ExtendDT)
-    ExtendDTCol$Moment<-"All"
-    ExtendDTCol<-data.table(rbind(ExtendDT,ExtendDTCol))
-    
-    Grp3<-Grph.3(DatP = ExtendDTCol,"OPR",LblsP =c("Object Exploration", "C","Peak FR (Hz)"),ylmP =c(0,1.5),hLin = F,lvIp = 6,wMain = T)
-   
-    
-    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
-      Grp3
-      GrpO
-    dev.off()
-    
-    # Results
-    <<ResCtrl4>>
-```
+## Fig S1B,S1D,S1E,S1F,S1G,S1H  {Design 2x2x(5xS)}
+```{r , eval=F}
 
-## Fig S1D Out of field firing rate {Design 2x2x(5xS)}
-```{r S1D, }
-  NmBas="FigS1D OutOfField"
-  NmFAlL<-paste0(PathDesign,NmBas)
-  if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
-  NmFAlL<-paste0(NmFAlL,"/")
-  ResGen<-NA
-  
-  rrt<-ExDataIS.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = c(1,5,6,17:21),vIntP =c(4:8),lvlCh = list("HAB"="outF_s1", "T1"="outF_s2","T2"="outF_s3","T3"="outF_s4","Test"="outF_s5"))
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  ExtendDT<-rrt$ExtendDT
-  
-  # Simple Effects:
-  DatEfS<-list()
-  for(is in 1:5) {
-    DatEfS[[is]]<-ExData.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = c(5:6,(6+is)))
-    names(DatEfS[[is]]$DT)[3]<-"DepV"
-  }
-  
-  # Graphs
-  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Object Exploration", "","Out of Field FR (Hz)"),ylmP =c(0,1.5),hLin = F,lvIp=5)
-  Grp2=Grp
-    
-    #AOV
-    names(rrt$DT)[4:8]<-c("T1","T2","T3","T4","T5")
-    ResGen<-AOVMx2.5(A=2,B=2,C=5,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 1000,nBMM2 = 1000,Prc = 2)
-    AlmacenGen2(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=2)
-  
-  # Other Graphs
-    GrpO<-Grph.3.Otros(ExtendDT,LblsP =c("Object Exploration", "D","Out of Field FR (Hz)"))
-      
-    ExtendDTCol<-copy(ExtendDT)
-    ExtendDTCol$Moment<-"All"
-    ExtendDTCol<-data.table(rbind(ExtendDT,ExtendDTCol))
-    
-    Grp3<-Grph.3(DatP = ExtendDTCol,"OPR",LblsP =c("Object Exploration", "D","Out of Field FR (Hz)"),ylmP =c(0,1.5),hLin = F,lvIp = 6,wMain = T)
-  
-    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
-      Grp3
-      GrpO
-    dev.off()
-    
-    # Results
-    <<ResCtrl4>>
-```
+# Command selection. Copy the rest of the lines of code from the chunk of the reference figure and in the same order.
 
-## Fig S1E Number of fields {Design 2x2x(5xS)}
-```{r S1E,}
-  NmBas="FigS1E NumberOfFields"
-  NmFAlL<-paste0(PathDesign,NmBas)
-  if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
-  NmFAlL<-paste0(NmFAlL,"/")
-  ResGen<-NA
-  
-  rrt<-ExDataIS.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = c(1,5,6,22:26),vIntP =c(4:8),lvlCh = list("HAB"="NOfF_s1", "T1"="NOfF_s2","T2"="NOfF_s3","T3"="NOfF_s4","Test"="NOfF_s5"))
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  ExtendDT<-rrt$ExtendDT
-  
-  # Simple Effects:
-  DatEfS<-list()
-  for(is in 1:5) {
-    DatEfS[[is]]<-ExData.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = c(5:6,(6+is)))
-    names(DatEfS[[is]]$DT)[3]<-"DepV"
-  }
-  
-  # Graphs
-  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Object Exploration", "","Number of Fields"),ylmP =c(0,3),hLin = F,lvIp=5)
-  Grp2=Grp
-    
-    #AOV
-    #A=2;B=2;C=5;DatPas=rrt;DatEfSp=DatEfS;nBMM1=nBMM2=1000;Prc=2
-    names(rrt$DT)[4:8]<-c("T1","T2","T3","T4","T5")
-    ResGen<-AOVMx2.5(A=2,B=2,C=5,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 1000,nBMM2 = 1000,Prc = 2)
- 
-    AlmacenGen2(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=2)
-  
-  # Other Graphs
-    GrpO<-Grph.3.Otros(ExtendDT,LblsP =c("Object Exploration", "E","Number of Fields"))
- 
-    ExtendDTCol<-copy(ExtendDT)
-    ExtendDTCol$Moment<-"All"
-    ExtendDTCol<-data.table(rbind(ExtendDT,ExtendDTCol))
-    
-    Grp3<-Grph.3(DatP = ExtendDTCol,"OPR",LblsP =c("Object Exploration", "E","Number of Fields"),ylmP =c(0,3),hLin = F,lvIp = 6,wMain = T)
-   
-    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
-      Grp3
-      GrpO
-    dev.off()
-    
-    # Results
-    <<ResCtrl4>>
-```
-
-## Fig S1F Field size {Design 2x2x(5xS)}
-```{r S1F, }
-  NmBas="FigS1F FieldSize"
-  NmFAlL<-paste0(PathDesign,NmBas)
-  if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
-  NmFAlL<-paste0(NmFAlL,"/")
-  ResGen<-NA
-
-  rrt<-ExDataIS.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = c(1,5,6,36:40),vIntP =c(4:8),lvlCh = list("HAB"="SmFields_s1", "T1"="SmFields_s2","T2"="SmFields_s3","T3"="SmFields_s4","Test"="SmFields_s5"))
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  ExtendDT<-rrt$ExtendDT
-  
-  # Simple Effects:
-  DatEfS<-list()
-  for(is in 1:5) {
-    DatEfS[[is]]<-ExData.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = c(5:6,(6+is)))
-    names(DatEfS[[is]]$DT)[3]<-"DepV"
-  }
-  
-  # Graphs
-  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Object Exploration", "",bquote('Field Size (cm'~(cm^2))),ylmP =c(0,600),hLin = F,lvIp=5)
-  Grp2=Grp
-    
-    #AOV
-    #A=2;B=2;C=5;DatPas=rrt;DatEfSp=DatEfS;nBMM1=nBMM2=1000;Prc=2
-    names(rrt$DT)[4:8]<-c("T1","T2","T3","T4","T5")
-    ResGen<-AOVMx2.5(A=2,B=2,C=5,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 1000,nBMM2 = 1000,Prc = 2)
-    AlmacenGen2(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=2)
-  
-  # Other Graphs
-    GrpO<-Grph.3.Otros(ExtendDT,LblsP =c("Object Exploration", "F",bquote('Field Size (cm'~(cm^2))))
-    
-    ExtendDTCol<-copy(ExtendDT)
-    ExtendDTCol$Moment<-"All"
-    ExtendDTCol<-data.table(rbind(ExtendDT,ExtendDTCol))
-    
-    Grp3<-Grph.3(DatP = ExtendDTCol,"OPR",LblsP =c("Object Exploration", "F",bquote('Field Size (cm'~(cm^2))),ylmP =c(0,600),hLin = F,lvIp = 6,wMain = T)
-   
-    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
-      Grp3
-      GrpO
-    dev.off()
-    
-    # Results
-    <<ResCtrl4>>
-```
-
-## Fig S1G Spatial information content {Design 2x2x(5xS)}
-```{r S1G, }
-  NmBas="FigS1G SpatialInfCont"
-  NmFAlL<-paste0(PathDesign,NmBas)
-  if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
-  NmFAlL<-paste0(NmFAlL,"/")
-  ResGen<-NA
-
-  rrt<-ExDataIS.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = c(1,5,6,27:31),vIntP =c(4:8),lvlCh =  list("HAB"="InfoC_s1", "T1"="InfoC_s2","T2"="InfoC_s3","T3"="InfoC_s4","Test"="InfoC_s5"))
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  ExtendDT<-rrt$ExtendDT
-  
-  # Simple Effects
-  DatEfS<-list()
-  for(is in 1:5) {
-    DatEfS[[is]]<-ExData.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = c(5:6,(6+is)))
-    names(DatEfS[[is]]$DT)[3]<-"DepV"
-  }
-  
-  # Graphs
-  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Object Exploration", "","Spatial Information (bits/s)"),ylmP =c(0,3),hLin = F,lvIp=5)
-  Grp2=Grp
-    
-    #AOV
-    #A=2;B=2;C=5;DatPas=rrt;DatEfSp=DatEfS;nBMM1=nBMM2=1000;Prc=2
-    names(rrt$DT)[4:8]<-c("T1","T2","T3","T4","T5")
-    ResGen<-AOVMx2.5(A=2,B=2,C=5,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 1000,nBMM2 = 1000,Prc = 2)
- 
-    AlmacenGen2(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=2)
-  
-  # Other Graphs
-    GrpO<-Grph.3.Otros(ExtendDT,LblsP =c("Object Exploration", "G","Spatial Information (bits/s)"))
-    
-    ExtendDTCol<-copy(ExtendDT)
-    ExtendDTCol$Moment<-"All"
-    ExtendDTCol<-data.table(rbind(ExtendDT,ExtendDTCol))
-    
-    Grp3<-Grph.3(DatP = ExtendDTCol,"OPR",LblsP =c("Object Exploration", "G","Spatial Information (bits/s)"),
-                 ylmP =c(0,3),hLin = F,lvIp = 6,wMain = T)
-   
-    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
-      Grp3
-      GrpO
-    dev.off()
-    
-    # Results
-    <<ResCtrl4>>
-```    
-   
-## Fig S1H Cluster Quality L-ratio  {Design 2x2x(5xS)}   
-```{r FS1H,}
-  NmBas="FigS1H LRatio"
-  NmFAlL<-paste0(PathDesign,NmBas)
-    if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
-    NmFAlL<-paste0(NmFAlL,"/")
-
+  # Fig S1B Cluster Quality L-ratio  {Design 2x2x(5xS)}
+  # As Fig.S1B
   rrt<-ExDataIS.2(nmF = paste0(PathDesign,"ClusterQuality.csv"),Vars = c(1,5,6,12:16),vIntP =c(4:8),lvlCh = list("HAB"="LR_s1", "T1"="LR_s2","T2"="LR_s3","T3"="LR_s4","Test"="LR_s5"))
-  DatDT<-rrt$DT
-  ArP<-rrt$Arp
-  ExtendDT<-rrt$ExtendDT
-  
-  # Simple Effects
-  DatEfS<-list()
-  for(is in 1:5) {
-    DatEfS[[is]]<-ExData.2(nmF = paste0(PathDesign,"ClusterQuality.csv"),Vars = c(5:6,(11+is)))
-    names(DatEfS[[is]]$DT)[3]<-"DepV"
-  }
-  
-  #Graphs
   Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Cluster Quality", "","L-Ratio"),ylmP =c(0,10),hLin = F,lvIp=5)
-  Grp2=Grp
-    
-    #AOV
-    names(rrt$DT)[4:8]<-c("T1","T2","T3","T4","T5")
-    ResGen<-AOVMx2.5(A=2,B=2,C=5,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 1000,nBMM2 = 1000,Prc = 2)
-    AlmacenGen2(GrpP = Grp,Grp2P = Grp2,DataPas = ResGen,PathDesignP = PathDesign,NmBasP = NmBas,Typ=2)
+  ResGen<-AOVMx2.5(A=2,B=2,C=5,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 1000,nBMM2 = 1000,Prc = 2)
   
-  # Other Graphs
-    GrpO<-Grph.3.Otros(ExtendDT,LblsP =c("Cluster Quality", "I","L-Ratio"))
-    
-    ExtendDTCol<-copy(ExtendDT)
-    ExtendDTCol$Moment<-"All"
-    ExtendDTCol<-data.table(rbind(ExtendDT,ExtendDTCol))
-    
-    Grp3<-Grph.3(DatP = ExtendDTCol,"OPR",LblsP =c("Cluster Quality", "I","L-Ratio"),
-                 ylmP =c(0,10),hLin = F,lvIp = 6,wMain = T)
+  # Fig S1D Peak firing rate {Design 2x2x(5xS)}
+  # As Fig.S1B
+  rrt<-ExDataIS.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = c(1,5,6,12:16),vIntP =c(4:8),lvlCh = list("HAB"="pfr_s1", "T1"="pfr_s2","T2"="pfr_s3","T3"="pfr_s4","Test"="pfr_s5"))
+  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Object Exploration", "","Peak FR (Hz)"),ylmP =c(0,10),hLin = F,lvIp=5)
+  ResGen<-AOVMx2.5(A=2,B=2,C=5,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 1000,nBMM2 = 1000,Prc = 2)
+ 
+  # Fig S1E Out of field firing rate {Design 2x2x(5xS)}
+  # As Fig.S1B
+  rrt<-ExDataIS.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = c(1,5,6,17:21),vIntP =c(4:8),lvlCh = list("HAB"="outF_s1", "T1"="outF_s2","T2"="outF_s3","T3"="outF_s4","Test"="outF_s5"))
+  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Object Exploration", "","Out of Field FR (Hz)"),ylmP =c(0,1.5),hLin = F,lvIp=5)
+  ResGen<-AOVMx2.5(A=2,B=2,C=5,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 1000,nBMM2 = 1000,Prc = 2)
+  
+  # Fig S1F Number of fields {Design 2x2x(5xS)}
+  # As Fig.S1B
+  rrt<-ExDataIS.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = c(1,5,6,22:26),vIntP =c(4:8),lvlCh = list("HAB"="NOfF_s1", "T1"="NOfF_s2","T2"="NOfF_s3","T3"="NOfF_s4","Test"="NOfF_s5"))
+  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Object Exploration", "","Number of Fields"),ylmP =c(0,3),hLin = F,lvIp=5)
+  ResGen<-AOVMx2.5(A=2,B=2,C=5,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 1000,nBMM2 = 1000,Prc = 2)
+  
+  # Fig S1G Field size {Design 2x2x(5xS)}
+  # As Fig.S1B
+  rrt<-ExDataIS.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = c(1,5,6,36:40),vIntP =c(4:8),lvlCh = list("HAB"="SmFields_s1", "T1"="SmFields_s2","T2"="SmFields_s3","T3"="SmFields_s4","Test"="SmFields_s5"))
+  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Object Exploration", "",bquote('Field Size (cm'~(cm^2))),ylmP =c(0,600),hLin = F,lvIp=5)
+  ResGen<-AOVMx2.5(A=2,B=2,C=5,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 1000,nBMM2 = 1000,Prc = 2)
+  
+  # Fig S1H Spatial information content {Design 2x2x(5xS)}
+  # As Fig.S1B
+  rrt<-ExDataIS.2(nmF = paste0(PathDesign,"Parameters.csv"),Vars = c(1,5,6,27:31),vIntP =c(4:8),lvlCh =  list("HAB"="InfoC_s1", "T1"="InfoC_s2","T2"="InfoC_s3","T3"="InfoC_s4","Test"="InfoC_s5"))
+  Grp<- Grph.3(DatP = ExtendDT,"OPR",LblsP =c("Object Exploration", "","Spatial Information (bits/s)"),ylmP =c(0,3),hLin = F,lvIp=5)
+  ResGen<-AOVMx2.5(A=2,B=2,C=5,DatPas = rrt,DatEfSp = DatEfS,nBMM1 = 1000,nBMM2 = 1000,Prc = 2)
+  
+  
+```
    
-    pdf(paste0(NmFAlL,NmBas,"OtrosGraphs.pdf"))
-      Grp3
-      GrpO
-    dev.off()
-    
-    <<ResCtrl4>>
-```   
    
-## Fig S1I Unmoved L-Ratio {Design 2x(5xS)}   
-```{r S1I, }
-  NmBas="FigS1I UnMovedLRatio"
+# **Supplemental Figure 2. Detection of remapping threshold.**   
+
+***   
+
+> **Supplemental Figure 2.** Detection of remapping threshold. A-B) Scatter plots showing correlations between Hab/T1 and T1/T2 in young (A) and old (B) animals. C-D) Results of a machine learning algorithm, MATLAB kmeans, used to approximate the threshold to determine stability. The algorithm was instructed to group the data into 3 categories using correlation values from young (C) and old (D) mice. Means for each category are indicated by black squares. In both graphs the best approximation coincided with a threshold value of 0.35. Blue ellipse/dots contain correlation values displaying high stability between Hab/T1 and T1/T2, coinciding with our definition of context cells, green ellipse/dots contain correlation values displaying low stability between Hab/T1, but high stability between T1/T2, coinciding with our definition of object configuration cells, red ellipse/dots contain correlation values displaying low stability between Hab/T1 and T1/T2, coinciding with our definition of unstable cells. E) Histogram showing cell counts for all correlations between Hab and T1. Low stability cells are shown in red, whereas high stability cells are shown in blue. Note that the distributions are not normal, which justified the selection of robust statistics for all the analyses. The threshold of 0.35 was the best approximation to separate stable and unstable cells between habituation and T1. Data in scatter plots and histogram distributions, as well as the output of a machine learning algorithm converge to indicate that the threshold of 0.35 is the best value to categorize cell types. Hab: habituation, T1-3: Trials1-3.   
+   
+
+***   
+   
+# **Supplemental Figure 3. L-Ratio for animals included in the unmoved control experiment.**   
+
+***   
+
+> **Supplemental Figure 3.** L-Ratio for animals included in the unmoved control experiment. There were no differences between young and old controls in cluster quality across trails [effect of age: Fw(1)-1.14, p=0.30, effect of trial: Fw(4)=1.86, p=0.15; interaction age vs. trial: Fw(4)=0.07, p=0.99]. YC: young control, OC: old control. Statistical details in Supplemental Statistical Table corresponding to Supplemental Figure 3.   
+
+***   
+   
+## Fig S3 Unmoved L-Ratio {Design 2x(5xS)}   
+```{r S3, }
+  NmBas="FigS3 UnMovedLRatio"
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
   NmFAlL<-paste0(NmFAlL,"/")
@@ -4601,29 +3880,21 @@ NmBas="Fig6H RelThetaPowerREM Recover"
     <<ResCtrl2>>
 ```   
    
-   
-# **Supplemental Figure 2. Detection of remapping threshold.**   
+***   
+
+# **Supplemental Figure 4. Bayes classifier validation.**   
 
 ***   
 
-> **Supplemental Figure 2.** Detection of remapping threshold. A-B) Scatter plots showing correlations between Hab/T1 and T1/T2 in young (A) and old (B) animals. Blue ellipse contains correlation values that display high stability on both Hab/T1 and T1/T2, green ellipse contains correlation values that display low stability in Hab/T1 but high stability in T1/T2, red ellipse contains correlation values that display low stability in both Hab/T1 and T1/T2 comparisons. C) Histogram showing cell counts for all correlations. Low stability cells are shown in red, whereas high stability cells are shown in blue. Note that the distributions are not normal, which justified the selection of robust statistics for all the analyses. The threshold of 0.35 best separated stable and unstable correlations. D-E) Results of a machine learning algorithm, MATLAB as kmeans, used to approximate the threshold to determine stability. The algorithm was instructed to group the data into 3 categories using correlation values from young (D) and old (E) mice. Means for each category are indicated by black squares. In both graphs the best approximation coincided with a threshold value of 0.35.  These data demonstrate that using scatter plots, histogram distributions, and machine learning algorithms, the threshold of 0.35 is the best value to categorize cell types.   
-
-***   
-   
-
-# **Supplemental Figure 3. Bayes classifier validation.**   
-
-***   
-
-> **Supplemental Figure 3.** Bayes classifier validation. A) Photograph of the SD chamber. B) Representative 5 hr sleep recording showing electroencephalogram (EEG, top panel) and electromyograph (EMG, bottom panel) color-coded using the output of a Bayes classifier. The color-coded EEG and EMG trace illustrates the accuracy of the classifier detecting Wake, NREM and REM periods. C-D) Average normalized confusion matrices for young (C) and old (D) mice. To determine the accuracy, sensitivity and specificity of the classifier, a confusion matrix was created by comparing visual and algorithm scored data in 4 young and 4 old mice. The results of this comparison were summed into the matrix for each animal. Each entry was then divided by the total number of epochs and multiplied by 100 to turn the values into percentages. Average confusion matrices were computed for young (C) and old (D) mice. E) Accuracy of the Bayes classifier for young and old mice. F) Receiver operating characteristic (ROC) curve showing average values of sensitivity (true positive rates) against false positive rates (1-specificity) for Wake, NREM, and REM in young and old mice.  The high accuracy of the classifier is illustrated by the fact that all values are plotted in the upper left area, indicating high sensitivity and low fallout errors.   
+> **Supplemental Figure 4.** Bayes classifier validation. A) Photograph of the SD chamber. B) Representative 5 hr sleep recording showing electroencephalogram (EEG, top panel) and electromyograph (EMG, bottom panel) color-coded using the output of a Bayes classifier. The color-coded EEG and EMG trace illustrates the accuracy of the classifier detecting Wake, NREM and REM periods. C-D) Average normalized confusion matrices for young (C) and old (D) mice. To determine the accuracy, sensitivity and specificity of the classifier, a confusion matrix was created by comparing visual and algorithm scored data in 4 young and 4 old mice. The results of this comparison were summed into the matrix for each animal. Each entry was then divided by the total number of epochs and multiplied by 100 to turn the values into percentages. Average confusion matrices were computed for young (C) and old (D) mice. E) Accuracy of the Bayes classifier for young and old mice. F) Receiver operating characteristic (ROC) curve showing average values of sensitivity (true positive rates) against false positive rates (1-specificity) for Wake, NREM, and REM in young and old mice. In the center of Figure F there is an enlargement of the execution data. The high accuracy of the classifier is illustrated by the fact that all values are plotted in the upper left area, indicating high sensitivity and low fallout errors.   
 
 ***   
 
 E) Accuracy of the Bayes classifier for young and old mice
 F) Receiver operating characteristic (ROC) curve   
 
-```{r S3EF, fig.keep='all'}
-  NmBas="FigS3E_F BayesClassifier"
+```{r S4EF, fig.keep='all'}
+  NmBas="FigS4E_F BayesClassifier"
   NmFich<-paste0(PathDesign,"SensAnalysisAll.csv");
   NmFAlL<-paste0(PathDesign,NmBas)
   if (!dir.exists(NmFAlL)) {dir.create(NmFAlL)}
@@ -4781,18 +4052,19 @@ Grp4<-g2+ geom_point(size=3.5)  + xlim(0,1) +  ylim(0,1) + geom_abline(intercept
     plot(Grp4)
 ```   
    
+***   
 
-# **Supplemental Figure 4. Power spectra during NREM and REM.**    
+# **Supplemental Figure 5. Power spectra during NREM and REM.**    
 
 ***   
 
-> **Supplemental Figure 4.** Power spectra during NREM and REM during post-learning and recovery and relative sigma (RSP) and beta (RBP) power. A-F) NREM and REM average (red) and individual (gray) power spectra during post-learning (A-B) and recovery (C-F) for all age groups and sleep conditions. G-J) RSP and RBP did not show differences during post-learning (G-H) or recovery (I-J). Statistical details in Supplemental Statistical Table corresponding to Supplemental Figure 4.   
+> **Supplemental Figure 5.** Power spectra during NREM and REM during post-learning and recovery and relative sigma (RSP) and beta (RBP) power. A-F) NREM and REM average (red)  and individual (gray) power spectra during post-learning (A-B) and recovery (C-F) for all groups. G-J) Relative sigma (RSP) and beta (RBP) did not show differences during post-learning (G-H) or recovery (I-J). Sigma: 10-15 Hz, beta: 15-25 Hz. YC: young control, YSD: young sleep deprived, OC: old control, OSD: old sleep deprived. Statistical details in Supplemental Statistical Table corresponding to Supplemental Figure 4.   
    
 ***   
    
-## Fig S4G,H Band Power PostL {Design 2}   
-```{r S4GH, fig.keep='all'}
-  NmBas="FigS4G_H Band Power PostL"
+## Fig S5G,H Band Power PostL {Design 2}   
+```{r S5GH, fig.keep='all'}
+  NmBas="FigS5G_H Band Power PostL"
   NmFich="BandPowerPostL.csv";
   NmFich<-paste0(PathDesign,NmFich);
   NmFAlL<-paste0(PathDesign,NmBas)
@@ -4871,10 +4143,10 @@ Grp4<-g2+ geom_point(size=3.5)  + xlim(0,1) +  ylim(0,1) + geom_abline(intercept
     Kbl3(ResRes, "Omnibus AOV. Design 2")
 ```   
    
-## Fig S4I,J Band Power Recover {Design 2*2}   
-```{r S4IJ, }
+## Fig S5I,J Band Power Recover {Design 2*2}   
+```{r S5IJ, }
   
-  NmBas="FigS4I RelSigmaPowerNREM Recover"
+  NmBas="FigS5I RelSigmaPowerNREM Recover"
   rrt<-ExData.2(nmF = paste0(PathDesign,"BandPowerRecover.csv"),Vars = c(4:5,10))
   DatDT<-rrt$DT
   ArP<-rrt$Arp
@@ -4891,7 +4163,7 @@ Grp4<-g2+ geom_point(size=3.5)  + xlim(0,1) +  ylim(0,1) + geom_abline(intercept
   #Results FigS4I RelSigmaPowerNREM Recover
     <<ResCtrl1>>
   
-NmBas="FigS4J RelBetaPowerREM Recover"
+NmBas="FigS5J RelBetaPowerREM Recover"
   rrt<-ExData.2(nmF = paste0(PathDesign,"BandPowerRecover.csv"),Vars = c(4:5,11))
   DatDT<-rrt$DT
   ArP<-rrt$Arp  
